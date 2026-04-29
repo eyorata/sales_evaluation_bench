@@ -1,0 +1,114 @@
+{
+  "n_gram_check": {
+    "n": 8,
+    "violations": [
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0008",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0013",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0004",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0011",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0012",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0003",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0006",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0010",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0002",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0016",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0007",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0001",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0014",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0005",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0009",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0017",
+        "shared_n": 8
+      },
+      {
+        "held_out": "TB-0015",
+        "other": "TB-0018",
+        "shared_n": 8
+      }
+    ],
+    "violations_count": 17,
+    "verdict": "FAIL"
+  },
+  "embedding_similarity_check": {
+    "metric": "hashed_trigram_cosine",
+    "threshold": 0.85,
+    "violations": [],
+    "violations_count": 0,
+    "verdict": "PASS"
+  },
+  "time_shift_check": {
+    "window": [
+      "2025-11-01",
+      "2026-04-29"
+    ],
+    "violations": [],
+    "violations_count": 0,
+    "verdict": "PASS"
+  },
+  "summary": {
+    "held_out_count": 66,
+    "other_count": 188
+  }
+}

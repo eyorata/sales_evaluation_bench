@@ -1,0 +1,106 @@
+{
+  "train": {
+    "total": 125,
+    "by_dimension": {
+      "bench_over_commitment": 16,
+      "icp_misclassification": 12,
+      "signal_over_claiming": 11,
+      "signal_confidence_alignment": 13,
+      "scheduling_edge_cases": 14,
+      "multi_thread_leakage": 18,
+      "dual_control_coordination": 15,
+      "tone_drift": 14,
+      "gap_over_claiming": 12
+    },
+    "by_source_mode": {
+      "multi_llm_synthesis": 36,
+      "programmatic": 42,
+      "trace_derived": 47
+    },
+    "by_difficulty": {
+      "hard": 62,
+      "medium": 17,
+      "easy": 21,
+      "adversarial": 25
+    }
+  },
+  "dev": {
+    "total": 63,
+    "by_dimension": {
+      "bench_over_commitment": 7,
+      "icp_misclassification": 7,
+      "signal_over_claiming": 6,
+      "signal_confidence_alignment": 7,
+      "scheduling_edge_cases": 6,
+      "multi_thread_leakage": 8,
+      "dual_control_coordination": 7,
+      "tone_drift": 8,
+      "gap_over_claiming": 7
+    },
+    "by_source_mode": {
+      "programmatic": 28,
+      "multi_llm_synthesis": 11,
+      "trace_derived": 24
+    },
+    "by_difficulty": {
+      "hard": 32,
+      "medium": 12,
+      "easy": 9,
+      "adversarial": 10
+    }
+  },
+  "held_out": {
+    "total": 66,
+    "by_dimension": {
+      "bench_over_commitment": 7,
+      "icp_misclassification": 7,
+      "signal_over_claiming": 8,
+      "signal_confidence_alignment": 9,
+      "scheduling_edge_cases": 4,
+      "multi_thread_leakage": 6,
+      "dual_control_coordination": 6,
+      "tone_drift": 9,
+      "gap_over_claiming": 8,
+      "cost_pathology": 2
+    },
+    "by_source_mode": {
+      "hand_authored_adversarial": 30,
+      "multi_llm_synthesis": 17,
+      "programmatic": 10,
+      "trace_derived": 9
+    },
+    "by_difficulty": {
+      "adversarial": 35,
+      "hard": 21,
+      "medium": 6,
+      "easy": 4
+    }
+  },
+  "overall": {
+    "total": 254,
+    "by_dimension": {
+      "bench_over_commitment": 30,
+      "icp_misclassification": 26,
+      "signal_over_claiming": 25,
+      "signal_confidence_alignment": 29,
+      "scheduling_edge_cases": 24,
+      "multi_thread_leakage": 32,
+      "dual_control_coordination": 28,
+      "tone_drift": 31,
+      "gap_over_claiming": 27,
+      "cost_pathology": 2
+    },
+    "by_source_mode": {
+      "programmatic": 80,
+      "trace_derived": 80,
+      "multi_llm_synthesis": 64,
+      "hand_authored_adversarial": 30
+    },
+    "by_difficulty": {
+      "medium": 35,
+      "hard": 115,
+      "easy": 34,
+      "adversarial": 70
+    }
+  }
+}
