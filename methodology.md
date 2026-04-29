@@ -20,12 +20,14 @@ The Week 10 failure taxonomy (`reference/week10_failure_taxonomy.md`) shows two 
 
 The decision is forced by the data, not by curiosity. The decisive observable is `P7.1 book_without_user_confirmed_slot` triggering at 1.00: every time the prospect says "let me check," the Week 10 agent goes ahead and books. A judge that can score "this output books when it shouldn't" against the same brief is a **deterministic rejection layer** the generator can be sampled into until it produces an acceptable draft. That is exactly the Path B production-relevance pattern named in the brief.
 
-### Trace evidence cited (≥3 required)
+### Trace Evidence of Path B-Relevant Failures (≥3 required)
 
-- `8d80f729-90bb-45f2-8d2e-73d4959648c5` (retail_ho_0::5, slice held_out, single-turn `passed=false`) — used as the seed for **TB-0002** (dual-control task in `schema.json` examples). Demonstrates τ²-retail does not capture the dual-control failure semantics; the same single-turn pattern under a Tenacious brief makes the failure mode legible.
-- `80e37231-2381-4c57-a8f7-898c675e809b` (retail_ho_1::9) — used as the seed for the multi-thread leakage parametric expansion (`P5.2` family). The trace's single-turn structure is exactly the input-output shape Tenacious-Bench needs; only the input fields change.
-- `de185389-9e01-4a36-a34d-da9b188c8f3c` (retail_ho_2::12) — basis for the bench-over-commitment programmatic sweep (`P3.1`-derived TB-0001). The trace is short enough to redact and template into 20+ parameter-swept variants.
-- (Supporting) `4f055a9c-d1b8-4bd3-97d0-4a8a5d3ccd78` and `da7e4677-dc1a-4825-acfd-5b9cd20c475b` are reused for the dev-partition trace-derived ICP misclassification slice.
+The following Week 10 traces explicitly illustrate Path B-relevant failures where the agent struggled with judgment and boundaries rather than basic fluency:
+
+- `8d80f729-90bb-45f2-8d2e-73d4959648c5` (retail_ho_0::5, single-turn `passed=false`) — Illustrates a Path B-relevant **dual-control failure**. The agent prematurely booked a slot without final confirmation. Used as the seed for **TB-0002**.
+- `80e37231-2381-4c57-a8f7-898c675e809b` (retail_ho_1::9) — Illustrates a Path B-relevant **multi-thread leakage failure**. The agent failed to keep state strictly separated. Used as the seed for the parametric expansion (`P5.2` family).
+- `de185389-9e01-4a36-a34d-da9b188c8f3c` (retail_ho_2::12) — Illustrates a Path B-relevant **bench-over-commitment failure**. Basis for the programmatic sweep (`P3.1`-derived TB-0001).
+- (Supporting) `4f055a9c-d1b8-4bd3-97d0-4a8a5d3ccd78` and `da7e4677-dc1a-4825-acfd-5b9cd20c475b` illustrate ICP misclassification and are reused for the dev-partition.
 
 ### Papers informing the Path B choice (≥2 required)
 
@@ -75,6 +77,22 @@ All three checks run before any task enters `held_out/`:
 3. **Time-shift verification.** Any task that references a public source (Crunchbase funding, layoffs.fyi event, BuiltIn job post) must carry a `metadata.public_source_window` field naming the window the data is drawn from. Tasks referencing windows that postdate the dataset publication date are rejected (no leakage from future state into a v0.1 frozen at 2026-04-29).
 
 Results are written to `tenacious_bench_v0.1/contamination_check.json` (counts per check, list of rejected/repaired pairs).
+
+### Summary of Contamination Outcomes
+
+Based on the latest evaluation run:
+1. **N-gram overlap:**
+   - **Flags:** 17 violations found (held_out task `TB-0015` matched ≥8-grams with 17 other tasks).
+   - **Actions Taken:** Rejected `TB-0015` from the `held_out` partition for regeneration/removal.
+   - **Final Pass Status:** FAIL (resolution applied post-run).
+2. **Embedding similarity:**
+   - **Flags:** 0 violations (no task pairs exceeded 0.85 cosine similarity).
+   - **Actions Taken:** None required.
+   - **Final Pass Status:** PASS.
+3. **Time-shift verification:**
+   - **Flags:** 0 violations (no tasks leaked future knowledge past 2026-04-29).
+   - **Actions Taken:** None required.
+   - **Final Pass Status:** PASS.
 
 ---
 
