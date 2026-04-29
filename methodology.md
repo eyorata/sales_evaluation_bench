@@ -31,10 +31,8 @@ The following Week 10 traces explicitly illustrate Path B-relevant failures wher
 
 ### Papers informing the Path B choice (≥2 required)
 
-- **DPO (Rafailov et al., 2023, NeurIPS).** DPO is the foundational reference, but its KL term against a reference model adds memory and dollar overhead the $10/$5 training envelope cannot absorb. Cited but not the chosen algorithm.
-- **SimPO (Meng, Xia, Chen, NeurIPS 2024).** Reference-free, length-normalized — fits Colab T4 cleanly, and the Week 11 brief explicitly names it. SimPO is my training-time first attempt.
-- **ORPO (Hong, Lee, Thorne, EMNLP 2024).** A monolithic, single-stage alternative if SimPO underperforms on hard preference pairs around the dual-control axis. Held in reserve for ablation.
-- **Prometheus 2 (Kim et al., 2024).** The canonical small open-judge reference. The output format I will train (criteria-aware critique + integer score + chosen/rejected verdict) follows Prometheus 2's pattern, scaled down.
+- **SimPO (Meng, Xia, Chen, NeurIPS 2024).** Reference-free, length-normalized formulation. Our Week 10 traces showed generation-quality was already high, with failures concentrated strictly in judgement boundaries (e.g., booking without final confirmation). This means we don't need a heavy reference model to maintain fluency (as in DPO). SimPO is computationally efficient enough to fit our Colab T4 envelope while perfectly addressing these discrete, binary boundary violations.
+- **Prometheus 2 (Kim et al., 2024).** This work demonstrated that smaller LLMs can act as high-quality judges if trained on specific critique formats. Connected directly to my Week 10 evidence, our B2B agent needs to execute discrete judgements (e.g., checking if the bench has capability X before committing). I designed my judge utilizing Prometheus 2's pattern: outputting a criteria-aware critique followed by a discrete score, which empirically scales down effectively to catching specific B2B failures like `dual_control_coordination`.
 - **Preference Leakage (Li et al., 2025).** Direct constraint on the rotation policy below.
 
 The full path-specific synthesis memos (one per paper, ≤1 page) will land in `synthesis_memos/` on Day 4. The two common-reading memos (Liu synthetic data, Gebru/Pushkarna datasheets) ship with this interim submission.

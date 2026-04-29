@@ -123,16 +123,28 @@ def partition(rows: list[dict[str, Any]], seed: int) -> dict[str, list[dict[str,
             toks.extend((turn.get("body") or "").lower().split())
         return {tuple(toks[i:i + n]) for i in range(len(toks) - n + 1)} if len(toks) >= n else set()
 
-    other_grams: set[tuple[str, ...]] = set()
-    for r in train + dev:
-        other_grams |= _ngrams(r)
     keep2: list[dict[str, Any]] = []
     demoted_ng: list[dict[str, Any]] = []
-    for r in held:
-        if _ngrams(r) & other_grams:
-            demoted_ng.append(r)
+    
+    # Explicit pairwise near-duplicate comparison logic
+    for h_task in held:
+        h_grams = _ngrams(h_task)
+        if not h_grams:
+            keep2.append(h_task)
+            continue
+            
+        is_near_dup = False
+        for o_task in train + dev:
+            o_grams = _ngrams(o_task)
+            if h_grams & o_grams:  # Pairwise overlap detection
+                is_near_dup = True
+                break
+                
+        if is_near_dup:
+            demoted_ng.append(h_task)
         else:
-            keep2.append(r)
+            keep2.append(h_task)
+
     if demoted_ng:
         train.extend(demoted_ng)
     held = keep2
@@ -152,6 +164,17 @@ def partition(rows: list[dict[str, Any]], seed: int) -> dict[str, list[dict[str,
 
 
 def main() -> int:
+    """MAIN ORCHESTRATION ENTRYPOINT
+    
+    Coordinates the dataset authoring, filtering, and partitioning.
+    
+    Judge Filter Dimensions & Thresholds:
+    Every task is passed through a pointwise LLM judge (or offline scores for deterministic tasks).
+    To be accepted, a task must score >= 4 (out of 5) on all three dimensions:
+      1. input_coherence: Is the scenario and trace internally logical?
+      2. ground_truth_verifiability: Is there enough signal data to judge the interaction?
+      3. rubric_application_clarity: Can the grading rubric be applied deterministically?
+    """
     p = argparse.ArgumentParser()
     p.add_argument("--seed", type=int, default=deterministic_seed("tenacious_bench_v0.1"))
     args = p.parse_args()
