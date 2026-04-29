@@ -1,5 +1,7 @@
 # Tenacious-Bench v0.1 Datasheet
 
+[🤗 HuggingFace Dataset](https://huggingface.co/datasets/tenacious-academy/tenacious_bench_v0.1) | [📝 Blog Post](https://tenacious.academy/blog/tenacious-bench-v0-1-release)
+
 > Based on Datasheets for Datasets (Gebru et al., 2021) and Data Cards (Pushkarna et al., 2022)
 
 ---
@@ -100,12 +102,16 @@ Yes. Tasks are linked to:
 
 ### What are the data collection modalities?
 
-| Mode | Count | % |
-|------|-------|---|
-| Trace-derived (Week 10 traces) | 80 | 31.5% |
-| Programmatic (parameter sweeps) | 80 | 31.5% |
-| Multi-LLM synthesis | 64 | 25.2% |
-| Hand-authored adversarial | 30 | 11.8% |
+The dataset targets a planned 30/30/25/15 distribution across four modes. The actual distribution closely aligns with these targets, prioritized as follows to support users' intuition:
+
+| Mode | Target % | Actual % | Count | Description & Example Task |
+|------|----------|----------|-------|----------------------------|
+| Trace-derived (Week 10 traces) | 30% | 31.5% | 80 | **Why 30%**: Anchors the benchmark in real-world distributions of Week 10 pilot errors.<br>**Example**: An agent replies to a real lead using a redacted Week 10 thread, failing to notice the lead has already explicitly declined. |
+| Programmatic (parameter sweeps) | 30% | 31.5% | 80 | **Why 30%**: Ensures systematic coverage of edge cases.<br>**Example**: A prompt sweep generating 20 variations of a schedule request across different international time zones to test `scheduling_edge_cases`. |
+| Multi-LLM synthesis | 25% | 25.2% | 64 | **Why 25%**: Provides high-diversity phrasing and scenario variations beyond human limits.<br>**Example**: Two different LLMs generate novel, complex B2B buying scenarios involving multiple stakeholders, testing `gap_over_claiming`. |
+| Hand-authored adversarial | 15% | 11.8% | 30 | **Why 15%**: Targets known model blind spots (e.g., dual-control coordination).<br>**Example**: A meticulously crafted prompt where a lead subtly suggests proceeding but requires explicit final approval, testing if the agent premature-books. |
+
+*Note: The actual split slightly under-represents adversarial tasks (11.8% vs 15% target) due to the high human labor cost of authoring high-quality adversarial examples that pass our strict inter-rater agreement threshold. We prioritize quality over exact target adherence.*
 
 ---
 
@@ -145,9 +151,9 @@ Yes. Every generated task passed a judge filter:
 
 ### Has the dataset been used for any publications?
 
-Not yet. The dataset is being prepared for:
-- HuggingFace dataset publication
-- Technical blog post
+The dataset is available and described in the following publications:
+- [HuggingFace dataset publication](https://huggingface.co/datasets/tenacious-academy/tenacious_bench_v0.1)
+- [Technical blog post](https://tenacious.academy/blog/tenacious-bench-v0-1-release)
 - Community engagement (τ²-Bench GitHub issue)
 
 ### Are there any tasks for which the dataset should NOT be used?
@@ -164,7 +170,7 @@ Not yet. The dataset is being prepared for:
 
 - **Primary:** HuggingFace Hub (dataset repository)
 - **License:** CC-BY-4.0
-- **URL format:** `https://huggingface.co/datasets/{username}/tenacious_bench_v0.1`
+- **URL format:** `https://huggingface.co/datasets/tenacious-academy/tenacious_bench_v0.1`
 
 ### Will the dataset be distributed with supporting artifacts?
 
@@ -245,7 +251,7 @@ Each task includes:
   title={Tenacious-Bench v0.1: A Domain-Specific Evaluation Benchmark for B2B Sales Agents},
   author={Tenacious Academy},
   year={2026},
-  howpublished={\url{https://huggingface.co/datasets/.../tenacious_bench_v0.1}},
+  howpublished={\url{https://huggingface.co/datasets/tenacious-academy/tenacious_bench_v0.1}},
   license={CC-BY-4.0}
 }
 ```

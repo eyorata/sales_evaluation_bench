@@ -2,6 +2,8 @@
 
 **A Domain-Specific Evaluation Benchmark for Tenacious-Style B2B Sales Agents**
 
+[🤗 HuggingFace Dataset](https://huggingface.co/datasets/tenacious-academy/tenacious_bench_v0.1) | [📝 Blog Post](https://tenacious.academy/blog/tenacious-bench-v0-1-release)
+
 ---
 
 ## Overview
@@ -50,12 +52,17 @@ These require grounded comparison against a private hiring signal brief and benc
 
 ---
 
+## Environment Requirements
+
+- **Python:** 3.10+
+- **Key Libraries:** `pytest` (for unit testing), `datasets` (for Hub downloading), and `openai`/`anthropic` (for LLM-based judges).
+
 ## Quickstart
 
 ### 1. Clone the dataset
 
 ```bash
-git clone https://huggingface.co/datasets/{username}/tenacious_bench_v0.1
+git clone https://huggingface.co/datasets/tenacious-academy/tenacious_bench_v0.1
 cd tenacious_bench_v0.1
 ```
 
@@ -161,6 +168,14 @@ The `scoring_evaluator.py` returns a numeric score in [0,1] with no human in the
 
 ---
 
+## What's Next (Roadmap)
+
+- **v0.2 Release:** Expand adversarial task partition to hit the 15% target mode distribution and include multi-turn conversational evaluations.
+- **Leaderboard Launch:** Publish an interactive HuggingFace leaderboard comparing major open-weights and proprietary models on B2B sales failures.
+- **Integration with τ²-Bench:** Upstream core Tenacious checks into the main τ²-Bench retail repository to broaden its B2B capabilities.
+
+---
+
 ## Contributing
 
 1. Fork the dataset on HuggingFace
@@ -184,7 +199,7 @@ CC-BY-4.0 — Attribution required.
   title={Tenacious-Bench v0.1: A Domain-Specific Evaluation Benchmark for B2B Sales Agents},
   author={Tenacious Academy},
   year={2026},
-  howpublished={\url{https://huggingface.co/datasets/.../tenacious_bench_v0.1}},
+  howpublished={\url{https://huggingface.co/datasets/tenacious-academy/tenacious_bench_v0.1}},
   license={CC-BY-4.0}
 }
 ```
