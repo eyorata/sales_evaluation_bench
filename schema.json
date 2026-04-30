@@ -12,8 +12,8 @@
     },
     "source_mode": {
       "type": "string",
-      "enum": ["trace_derived", "programmatic", "multi_llm_synthesis", "hand_authored_adversarial"],
-      "description": "Which authoring mode produced this task. Required for source-share accounting in the datasheet."
+      "enum": ["trace_derived", "programmatic", "multi_llm_synthesis", "hand_authored_adversarial", "style_guide_pair"],
+      "description": "Which authoring mode produced this task. Required for source-share accounting in the datasheet. style_guide_pair tasks ship with paired chosen/rejected ground-truth verbatim from the Tenacious Style Guide v2."
     },
     "dimension": {
       "type": "string",

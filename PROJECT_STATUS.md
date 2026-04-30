@@ -11,8 +11,8 @@
 |-----|--------|-------|
 | Act I | ✅ Complete | 14/14 |
 | Act II | ✅ Complete | ~38/38 |
-| Act III | 🔄 ~60% done | Need training data + path-specific memos |
-| Act IV | ⏳ Not started | 0/22 |
+| Act III | ✅ Complete | 8/8 |
+| Act IV | 🔄 In progress | 0/22 |
 | Act V | ⏳ Not started | 0/26 |
 
 ---
@@ -110,7 +110,7 @@ Author 200–300 tasks across the dimensions named in your audit, using all four
 
 ---
 
-## Act III — Method Selection and Training Data Prep 🔄 IN PROGRESS
+## Act III — Method Selection and Training Data Prep ✅ COMPLETE
 
 **Day 4**  
 Read your path-specific papers and complete those synthesis memos. Then convert the training partition of Tenacious-Bench into the format your path needs.
@@ -119,9 +119,9 @@ Read your path-specific papers and complete those synthesis memos. Then convert 
 
 | Deliverable | Status | Location |
 |-------------|--------|----------|
-| training_data/ formatted for Path B | 🔄 Not done | — |
-| methodology_rationale.md | 🔄 Partial | `methodology.md` |
-| Path-specific synthesis memos | 🔄 Not done | Need 2 more |
+| training_data/ formatted for Path B | ✅ Complete | `training_data/preference_pairs.jsonl` |
+| methodology_rationale.md | ✅ Complete | `methodology.md` |
+| Path-specific synthesis memos | ✅ Complete | `synthesis_memos/` |
 
 ### What's Done ✅
 
@@ -129,11 +129,9 @@ Read your path-specific papers and complete those synthesis memos. Then convert 
 - Preference-leakage prevention documented (3-family rotation)
 - Partitioning protocol documented (50/30/20, stratified)
 - Contamination-check results reported
-
-### What's Missing 🔄
-
-- [ ] Training data not converted to preference pairs (chosen/rejected format)
-- [ ] Need 2 path-specific synthesis memos (SimPO + ORPO papers for Path B)
+- Training data converted to 128 preference pairs
+- SimPO synthesis memo written
+- ORPO synthesis memo written
 
 ### Path B Training Data Format
 
@@ -147,23 +145,26 @@ Read your path-specific papers and complete those synthesis memos. Then convert 
 
 ---
 
-## Act IV — Train, Ablate, Measure ⏳ NOT STARTED
+## Act IV — Train, Ablate, Measure 🔄 IN PROGRESS
 
 **Days 5 and 6**  
 Day 5 morning: one core training run. Day 5 afternoon and Day 6: ablations and held-out evaluation.
 
 ### Deliverables
 
-| Deliverable | Status |
-|-------------|--------|
-| SimPO/ORPO training run | ⏳ |
-| Delta A (trained vs Week 10 baseline) | ⏳ |
-| Delta B (trained vs prompt-engineered version) | ⏳ |
-| Delta C (trained vs τ²-Bench retail) | ⏳ |
-| ablation_results.json | ⏳ |
-| held_out_traces.jsonl | ⏳ |
-| model_card.md (if Path A or C) | ⏳ |
-| training_run.log | ⏳ |
+| Deliverable | Status | Location |
+|-------------|--------|----------|
+| SimPO/ORPO training script | ✅ Complete | `training_scripts/train_simpo.py` |
+| ORPO training script | ✅ Complete | `training_scripts/train_orpo.py` |
+| Ablation runner | ✅ Complete | `training_scripts/run_ablation.py` |
+| SimPO/ORPO training run | ⏳ | — |
+| Delta A (trained vs Week 10 baseline) | ⏳ | — |
+| Delta B (trained vs prompt-engineered version) | ⏳ | — |
+| Delta C (trained vs τ²-Bench retail) | ⏳ | — |
+| ablation_results.json | ⏳ | — |
+| held_out_traces.jsonl | ⏳ | — |
+| model_card.md (if Path A or C) | ⏳ | — |
+| training_run.log | ⏳ | — |
 
 ### Ablation Protocol
 

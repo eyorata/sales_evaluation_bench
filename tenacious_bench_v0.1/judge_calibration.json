@@ -1,0 +1,1038 @@
+{
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "sample_size": 50,
+  "agree_within_1": 36,
+  "disagree_more_than_1": 13,
+  "agreement_rate": 0.735,
+  "details": [
+    {
+      "task_id": "TB-0607",
+      "dimension": "multi_thread_leakage",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0614",
+      "dimension": "scheduling_edge_cases",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0067",
+      "dimension": "scheduling_edge_cases",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 4
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 1,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 1
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0623",
+      "dimension": "bench_over_commitment",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 4
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": -1
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0244",
+      "dimension": "multi_thread_leakage",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0617",
+      "dimension": "dual_control_coordination",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0610",
+      "dimension": "gap_over_claiming",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0265",
+      "dimension": "dual_control_coordination",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0626",
+      "dimension": "signal_confidence_alignment",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0621",
+      "dimension": "tone_drift",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0629",
+      "dimension": "icp_misclassification",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0030",
+      "dimension": "icp_misclassification",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0612",
+      "dimension": "signal_over_claiming",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0045",
+      "dimension": "signal_over_claiming",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 3,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 3
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": -2
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0624",
+      "dimension": "cost_pathology",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 1,
+        "ground_truth_verifiability": 1,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -4,
+        "ground_truth_verifiability": -4,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 1
+    },
+    {
+      "task_id": "TB-0230",
+      "dimension": "tone_drift",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0235",
+      "dimension": "gap_over_claiming",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0001",
+      "dimension": "bench_over_commitment",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0061",
+      "dimension": "signal_confidence_alignment",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 4
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 1,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 1,
+        "ground_truth_verifiability": -3,
+        "rubric_application_clarity": 1
+      },
+      "min_recalibrated": 1
+    },
+    {
+      "task_id": "TB-0616",
+      "dimension": "multi_thread_leakage",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0613",
+      "dimension": "scheduling_edge_cases",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0072",
+      "dimension": "scheduling_edge_cases",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 4
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 1,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 1
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0603",
+      "dimension": "bench_over_commitment",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0236",
+      "dimension": "multi_thread_leakage",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0622",
+      "dimension": "dual_control_coordination",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0627",
+      "dimension": "gap_over_claiming",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0229",
+      "dimension": "dual_control_coordination",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0608",
+      "dimension": "signal_confidence_alignment",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0628",
+      "dimension": "tone_drift",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0604",
+      "dimension": "icp_misclassification",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 2,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": -3,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 2
+    },
+    {
+      "task_id": "TB-0029",
+      "dimension": "icp_misclassification",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0620",
+      "dimension": "signal_over_claiming",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 4
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": -1
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0039",
+      "dimension": "signal_over_claiming",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0615",
+      "dimension": "cost_pathology",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 1,
+        "ground_truth_verifiability": 1,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -4,
+        "ground_truth_verifiability": -4,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 1
+    },
+    {
+      "task_id": "TB-0258",
+      "dimension": "tone_drift",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0255",
+      "dimension": "gap_over_claiming",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0004",
+      "dimension": "bench_over_commitment",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0057",
+      "dimension": "signal_confidence_alignment",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 4
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 1
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0606",
+      "dimension": "multi_thread_leakage",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0080",
+      "dimension": "scheduling_edge_cases",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 4
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 1,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 1
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0602",
+      "dimension": "bench_over_commitment",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 4,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": -1,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0276",
+      "dimension": "multi_thread_leakage",
+      "source_mode": "trace_derived",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0600",
+      "dimension": "dual_control_coordination",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0611",
+      "dimension": "gap_over_claiming",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0609",
+      "dimension": "signal_confidence_alignment",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 3
+    },
+    {
+      "task_id": "TB-0605",
+      "dimension": "tone_drift",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0022",
+      "dimension": "icp_misclassification",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": -1,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 4
+    },
+    {
+      "task_id": "TB-0619",
+      "dimension": "signal_over_claiming",
+      "source_mode": "hand_authored_adversarial",
+      "old": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 5,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": 0,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 5
+    },
+    {
+      "task_id": "TB-0047",
+      "dimension": "signal_over_claiming",
+      "source_mode": "programmatic",
+      "old": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 5,
+        "rubric_application_clarity": 5
+      },
+      "recalibrated": {
+        "input_coherence": 4,
+        "ground_truth_verifiability": 3,
+        "rubric_application_clarity": 5
+      },
+      "deltas": {
+        "input_coherence": 0,
+        "ground_truth_verifiability": -2,
+        "rubric_application_clarity": 0
+      },
+      "min_recalibrated": 3
+    }
+  ]
+}

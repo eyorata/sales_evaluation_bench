@@ -25,9 +25,9 @@ These require grounded comparison against a private hiring signal brief and benc
 
 | Metric | Value |
 |--------|-------|
-| Total tasks | 254 |
+| Total tasks | 253 |
 | Dimensions | 10 |
-| Partitions | train (125), dev (63), held_out (66) |
+| Partitions | train (126), dev (62), held_out (65) |
 | License | CC-BY-4.0 |
 
 ### Dimensions
@@ -40,15 +40,15 @@ These require grounded comparison against a private hiring signal brief and benc
 - multi_thread_leakage (32)
 - dual_control_coordination (28)
 - tone_drift (31)
-- gap_over_claiming (27)
+- gap_over_claiming (26)
 - cost_pathology (2)
 
 ### Source Modes
 
-- Trace-derived: 80 (31.5%)
-- Programmatic: 80 (31.5%)
-- Multi-LLM synthesis: 64 (25.2%)
-- Hand-authored adversarial: 30 (11.8%)
+- Trace-derived: 80 (31.6%)
+- Programmatic: 80 (31.6%)
+- Multi-LLM synthesis: 63 (24.9%) — authored online via DeepSeek-V3.2 ↔ Qwen3-Next-80B with strict family rotation
+- Hand-authored adversarial: 30 (11.9%)
 
 ---
 
@@ -105,9 +105,9 @@ sales_evaluation_bench/
 ├── tenacious_bench_v0.1/
 │   ├── composition.json         # Dataset statistics
 │   ├── contamination_check.json  # N-gram, embedding, time-shift verification
-│   ├── train/tasks.jsonl        # 125 training tasks
-│   ├── dev/tasks.jsonl         # 63 public dev tasks
-│   └── held_out/tasks.jsonl     # 66 sealed held-out tasks
+│   ├── train/tasks.jsonl        # 126 training tasks
+│   ├── dev/tasks.jsonl         # 62 public dev tasks
+│   └── held_out/tasks.jsonl     # 65 sealed held-out tasks
 ├── generation_scripts/          # Dataset authoring scripts
 │   ├── author_trace_derived.py
 │   ├── author_programmatic.py

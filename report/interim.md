@@ -1,8 +1,8 @@
 # Tenacious-Bench v0.1 — Interim Report
 
-**Date:** April 29, 2026  
-**Project:** Week 11 — Building the Sales Evaluation Bench  
-**Author:** Tenacious Academy
+**Date:** 2026-04-30
+**Project:** Week 11 — Building the Sales Evaluation Bench
+**Author:** Eyoel Yorat (10Academy TRP1)
 
 ---
 
@@ -18,7 +18,7 @@ This interim report documents the progress on Week 11 of the Tenacious Academy p
 | Tenacious-Bench schema | ✅ Complete | `schema.json` |
 | Path declaration (B) | ✅ Complete | `methodology.md` |
 | Scoring evaluator | ✅ Complete | `scoring_evaluator.py` |
-| 254 tasks (4 modes) | ✅ Complete | `tenacious_bench_v0.1/` |
+| 253 tasks (4 modes) | ✅ Complete | `tenacious_bench_v0.1/` |
 | Contamination checks | ✅ Complete | `contamination_check.json` |
 | Inter-rater agreement | ✅ Complete | `inter_rater_agreement.md` |
 | Datasheet (Gebru + Pushkarna) | ✅ Complete | `datasheet.md` |
@@ -60,11 +60,11 @@ From `eval/trace_log.jsonl`, every τ²-retail held-out task records `passed=fal
 
 | Metric | Value |
 |--------|-------|
-| Total tasks | 254 |
+| Total tasks | 253 |
 | Dimensions | 10 |
-| Training partition | 125 (49%) |
-| Public dev partition | 63 (25%) |
-| Sealed held-out | 66 (26%) |
+| Training partition | 126 (49.8%) |
+| Public dev partition | 62 (24.5%) |
+| Sealed held-out | 65 (25.7%) |
 
 ### By Dimension
 
@@ -78,17 +78,19 @@ From `eval/trace_log.jsonl`, every τ²-retail held-out task records `passed=fal
 | multi_thread_leakage | 32 | 12.6% |
 | dual_control_coordination | 28 | 11.0% |
 | tone_drift | 31 | 12.2% |
-| gap_over_claiming | 27 | 10.6% |
+| gap_over_claiming | 26 | 10.3% |
 | cost_pathology | 2 | 0.8% |
 
 ### By Source Mode
 
 | Mode | Count | % |
 |------|-------|---|
-| Trace-derived | 80 | 31.5% |
-| Programmatic | 80 | 31.5% |
-| Multi-LLM synthesis | 64 | 25.2% |
-| Hand-authored adversarial | 30 | 11.8% |
+| Trace-derived | 80 | 31.6% |
+| Programmatic | 80 | 31.6% |
+| Multi-LLM synthesis | 63 | 24.9% |
+| Hand-authored adversarial | 30 | 11.9% |
+
+**Multi-LLM synthesis was run online** through OpenRouter using strict family rotation: DeepSeek-V3.2 ↔ Qwen3-Next-80B-A3B alternating as author and judge per the Li et al. 2025 preference-leakage rule, with Llama-3.3-70B held back as the third-family calibration judge. 134 calls, $0.0079 spend. 1 task rejected by the judge filter; 2 tasks fell back to offline templates after API timeouts.
 
 ---
 
@@ -98,13 +100,17 @@ From `eval/trace_log.jsonl`, every τ²-retail held-out task records `passed=fal
 
 | Check | Threshold | Result |
 |-------|------------|--------|
-| N-gram overlap | <8-gram | Some violations found (TB-0015) |
-| Embedding similarity | <0.85 cosine | Passed |
-| Time-shift verification | Documented window | Passed |
+| N-gram overlap | <8-gram | **PASS — 0 violations** |
+| Embedding similarity (hashed-trigram cosine) | <0.85 | **PASS — 0 violations** |
+| Time-shift verification | 2025-11-01..2026-04-29 window | **PASS — 0 violations** |
 
-### Violations Addressed
+### Violations addressed at build time
 
-TB-0015 showed 8-gram overlap with multiple training/dev tasks. This task has been flagged in `contamination_check.json` and will be excluded from the sealed leaderboard if it affects evaluation validity.
+The build-time partitioner (`build_dataset.py partition()`) demotes any held-out task whose body matches a train/dev body or shares an 8-gram with any train/dev task. Latest build demoted 13 body-duplicates and 2 8-gram overlaps to train, leaving the held-out partition contamination-clean by construction. This is mirrored by `contamination_check.py` which then re-validates the on-disk partitions.
+
+### Cross-rater calibration (Llama-3.3-70B, 49 templated tasks)
+
+Agreement-within-±1 = **73.5%**, below the 80% threshold the brief sets for inter-rater agreement. Concentrated in `signal_confidence_alignment` rubric-clarity scores. **Rubric revision triggered for v0.2:** add an explicit `metadata.expected_mode` field so the rubric does not re-derive the phrasing-mode at scoring time.
 
 ---
 
@@ -161,11 +167,13 @@ The Week 10 failure taxonomy shows:
 
 | Bucket | Budget | Spent | Remaining |
 |--------|--------|-------|-----------|
-| Dataset authoring | $3-5 | $2.87 | $1.13 |
+| Dataset authoring | $3-5 | $0.0114 | $4.99 |
 | Training | $0-5 | $0.00 | $5.00 |
 | Held-out evaluation | $2-3 | $0.00 | $2.50 |
 | Reserve | $1-2 | $0.00 | $1.50 |
-| **Total** | **$10** | **$2.87** | **$7.13** |
+| **Total** | **$10** | **$0.0114** | **$9.99** |
+
+184 OpenRouter calls so far across 3 model families. Per-call detail in `cost/openrouter_calls.jsonl`.
 
 ### Cost Discipline Compliance
 
@@ -222,9 +230,9 @@ sales_evaluation_bench/
 ├── tenacious_bench_v0.1/
 │   ├── composition.json         # Dataset statistics
 │   ├── contamination_check.json  # Contamination verification
-│   ├── train/tasks.jsonl        # 125 training tasks
-│   ├── dev/tasks.jsonl         # 63 public dev tasks
-│   └── held_out/tasks.jsonl     # 66 sealed tasks
+│   ├── train/tasks.jsonl        # 126 training tasks
+│   ├── dev/tasks.jsonl         # 62 public dev tasks
+│   └── held_out/tasks.jsonl     # 65 sealed tasks
 └── generation_scripts/          # Authoring pipeline
 ```
 

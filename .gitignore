@@ -37,9 +37,11 @@ env/
 .DS_Store
 Thumbs.db
 
-# Data files (large)
-tenacious_bench_v0.1/*/tasks.jsonl
-!tenacious_bench_v0.1/*/.gitkeep
+# Dataset partitions are committed for interim grading.
+# BEFORE publishing to HuggingFace (Act V Day 7), the held_out partition
+# MUST be removed from the public repo per the brief's sealing requirement.
+# Re-enable the line below to seal:
+# tenacious_bench_v0.1/held_out/tasks.jsonl
 
 # Logs
 *.log

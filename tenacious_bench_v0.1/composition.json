@@ -1,27 +1,27 @@
 {
   "train": {
-    "total": 125,
+    "total": 128,
     "by_dimension": {
-      "bench_over_commitment": 16,
+      "bench_over_commitment": 18,
       "icp_misclassification": 12,
       "signal_over_claiming": 11,
       "signal_confidence_alignment": 13,
       "scheduling_edge_cases": 14,
       "multi_thread_leakage": 18,
       "dual_control_coordination": 15,
-      "tone_drift": 14,
+      "tone_drift": 15,
       "gap_over_claiming": 12
     },
     "by_source_mode": {
-      "multi_llm_synthesis": 36,
-      "programmatic": 42,
+      "multi_llm_synthesis": 38,
+      "programmatic": 43,
       "trace_derived": 47
     },
     "by_difficulty": {
-      "hard": 62,
+      "hard": 64,
       "medium": 17,
       "easy": 21,
-      "adversarial": 25
+      "adversarial": 26
     }
   },
   "dev": {
@@ -50,57 +50,59 @@
     }
   },
   "held_out": {
-    "total": 66,
+    "total": 75,
     "by_dimension": {
       "bench_over_commitment": 7,
-      "icp_misclassification": 7,
-      "signal_over_claiming": 8,
-      "signal_confidence_alignment": 9,
+      "icp_misclassification": 8,
+      "signal_over_claiming": 9,
+      "signal_confidence_alignment": 10,
       "scheduling_edge_cases": 4,
       "multi_thread_leakage": 6,
-      "dual_control_coordination": 6,
-      "tone_drift": 9,
-      "gap_over_claiming": 8,
+      "dual_control_coordination": 8,
+      "tone_drift": 12,
+      "gap_over_claiming": 9,
       "cost_pathology": 2
     },
     "by_source_mode": {
       "hand_authored_adversarial": 30,
-      "multi_llm_synthesis": 17,
-      "programmatic": 10,
+      "style_guide_pair": 12,
+      "multi_llm_synthesis": 15,
+      "programmatic": 9,
       "trace_derived": 9
     },
     "by_difficulty": {
-      "adversarial": 35,
-      "hard": 21,
+      "adversarial": 46,
+      "hard": 19,
       "medium": 6,
       "easy": 4
     }
   },
   "overall": {
-    "total": 254,
+    "total": 266,
     "by_dimension": {
-      "bench_over_commitment": 30,
-      "icp_misclassification": 26,
-      "signal_over_claiming": 25,
-      "signal_confidence_alignment": 29,
+      "bench_over_commitment": 32,
+      "icp_misclassification": 27,
+      "signal_over_claiming": 26,
+      "signal_confidence_alignment": 30,
       "scheduling_edge_cases": 24,
       "multi_thread_leakage": 32,
-      "dual_control_coordination": 28,
-      "tone_drift": 31,
-      "gap_over_claiming": 27,
+      "dual_control_coordination": 30,
+      "tone_drift": 35,
+      "gap_over_claiming": 28,
       "cost_pathology": 2
     },
     "by_source_mode": {
       "programmatic": 80,
       "trace_derived": 80,
       "multi_llm_synthesis": 64,
-      "hand_authored_adversarial": 30
+      "hand_authored_adversarial": 30,
+      "style_guide_pair": 12
     },
     "by_difficulty": {
       "medium": 35,
       "hard": 115,
       "easy": 34,
-      "adversarial": 70
+      "adversarial": 82
     }
   }
 }

@@ -1,0 +1,565 @@
+{
+  "n": 30,
+  "tolerance": "within \u00b11",
+  "per_dimension": {
+    "input_coherence": {
+      "agreement_pct": 100.0,
+      "agree": 30,
+      "total": 30
+    },
+    "ground_truth_verifiability": {
+      "agreement_pct": 100.0,
+      "agree": 30,
+      "total": 30
+    },
+    "rubric_application_clarity": {
+      "agreement_pct": 100.0,
+      "agree": 30,
+      "total": 30
+    }
+  },
+  "overall_avg_pct": 100.0,
+  "passes_80_pct_per_dim": true,
+  "pairs": [
+    {
+      "task_id": "TB-0001",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0010",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0019",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0028",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0040",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 3,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0044",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0050",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0058",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 4,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0061",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0066",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 3,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 3,
+        "t1": 3,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0075",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 3,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0080",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 3,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 3,
+        "t1": 3,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0090",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0094",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0099",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0204",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0208",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0228",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0205",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0213",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0237",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0214",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0238",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0258",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0207",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0231",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0259",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0615",
+      "input_coherence": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 4,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 4,
+        "t1": 4,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0600",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    },
+    {
+      "task_id": "TB-0617",
+      "input_coherence": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "ground_truth_verifiability": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      },
+      "rubric_application_clarity": {
+        "t0": 5,
+        "t1": 5,
+        "agree_within_1": true
+      }
+    }
+  ]
+}

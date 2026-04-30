@@ -16,6 +16,7 @@ from .author_adversarial import generate as gen_adv
 from .author_programmatic import generate as gen_prog
 from .author_synthesis import generate as gen_syn
 from .author_trace_derived import generate as gen_trace
+from .style_guide_seed import generate as gen_style_guide
 from .common import DATASET_DIR, deterministic_seed, write_jsonl
 
 
@@ -81,17 +82,18 @@ def partition(rows: list[dict[str, Any]], seed: int) -> dict[str, list[dict[str,
     train: list[dict[str, Any]] = []
     dev: list[dict[str, Any]] = []
     held: list[dict[str, Any]] = []
+    forced_held_modes = {"hand_authored_adversarial", "style_guide_pair"}
     for dim, items in by_dim.items():
-        adv = [x for x in items if x["source_mode"] == "hand_authored_adversarial"]
-        non_adv = [x for x in items if x["source_mode"] != "hand_authored_adversarial"]
-        held.extend(adv)
-        rng.shuffle(non_adv)
-        n = len(non_adv)
+        forced = [x for x in items if x["source_mode"] in forced_held_modes]
+        non_forced = [x for x in items if x["source_mode"] not in forced_held_modes]
+        held.extend(forced)
+        rng.shuffle(non_forced)
+        n = len(non_forced)
         n_train = int(n * 0.5)
         n_dev = int(n * 0.3)
-        train.extend(non_adv[:n_train])
-        dev.extend(non_adv[n_train:n_train + n_dev])
-        held.extend(non_adv[n_train + n_dev:])
+        train.extend(non_forced[:n_train])
+        dev.extend(non_forced[n_train:n_train + n_dev])
+        held.extend(non_forced[n_train + n_dev:])
 
     # Dedup pass: held-out tasks whose body matches anything in train+dev get
     # demoted to train. Empty-body tasks (synthesis-mode) are exempt — they have
@@ -177,15 +179,18 @@ def main() -> int:
     """
     p = argparse.ArgumentParser()
     p.add_argument("--seed", type=int, default=deterministic_seed("tenacious_bench_v0.1"))
+    p.add_argument("--online-synthesis", action="store_true",
+                   help="Route the multi-LLM synthesis mode through OpenRouter (real LLM calls).")
     args = p.parse_args()
 
     # 1) Author. Reserve task-id ranges so offline + online runs don't collide.
     prog = gen_prog(seed=args.seed, start_idx=1)               # 80 tasks: TB-0001..0080
     trace = gen_trace(seed=args.seed + 1, start_idx=200)       # 80 tasks: TB-0200..0279
-    syn = gen_syn(seed_int=args.seed + 2, start_idx=400)       # 64 tasks: TB-0400..0463
+    syn = gen_syn(seed_int=args.seed + 2, start_idx=400, online=args.online_synthesis)
     adv = gen_adv(start_idx=600)                               # 30 tasks: TB-0600..0629
-    all_rows: list[dict[str, Any]] = prog + trace + syn + adv
-    print(f"authored: prog={len(prog)} trace={len(trace)} syn={len(syn)} adv={len(adv)} total={len(all_rows)}")
+    sg = gen_style_guide(start_idx=700)                        # 12 tasks: TB-0700..0711
+    all_rows: list[dict[str, Any]] = prog + trace + syn + adv + sg
+    print(f"authored: prog={len(prog)} trace={len(trace)} syn={len(syn)} adv={len(adv)} sg={len(sg)} total={len(all_rows)}")
 
     # 2) Preference-leakage check (Li et al. 2025).
     bad = check_no_leakage(all_rows)
