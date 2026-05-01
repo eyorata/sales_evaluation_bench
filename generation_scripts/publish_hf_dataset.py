@@ -34,6 +34,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DATASET_DIR = REPO_ROOT / "tenacious_bench_v0.1"
 
+# Load HF_TOKEN / HF_USERNAME from .env (re-uses the loader from openrouter_client).
+sys.path.insert(0, str(REPO_ROOT))
+from generation_scripts.openrouter_client import _load_env  # noqa: E402
+
+_load_env()
+
 
 REQUIRED_FILES = [
     "datasheet.md",
@@ -229,7 +235,21 @@ def main() -> int:
 
         token = os.environ.get("HF_TOKEN")
         if not token:
-            print("ERROR: HF_TOKEN not set")
+            env_path = REPO_ROOT / ".env"
+            print(f"ERROR: HF_TOKEN not set in environment or in {env_path}")
+            if env_path.exists():
+                lines = [ln.rstrip() for ln in env_path.read_text(encoding="utf-8").splitlines()
+                         if ln.strip() and not ln.lstrip().startswith("#")]
+                keys_seen = [ln.split("=", 1)[0].strip() for ln in lines if "=" in ln]
+                print(f"  .env exists; non-commented keys seen: {keys_seen}")
+                if "HF_TOKEN" not in keys_seen:
+                    print("  -> HF_TOKEN line is missing or still commented out (begins with '#')")
+            else:
+                print("  .env does not exist at all")
+            return 1
+        if not token.startswith("hf_"):
+            print(f"ERROR: HF_TOKEN value does not start with 'hf_'. Found prefix: {token[:5]!r}")
+            print("  Likely cause: stray quote, trailing comma (turns string into tuple), or wrong token type.")
             return 1
 
         try:
