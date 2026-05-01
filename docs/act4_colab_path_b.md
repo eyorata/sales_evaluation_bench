@@ -84,7 +84,7 @@ assert os.path.exists("tenacious_bench_v0.1/held_out/tasks.jsonl"), "held_out/ta
 import json
 n_train = sum(1 for _ in open(TRAIN_PATH, encoding="utf-8"))
 n_held = sum(1 for _ in open("tenacious_bench_v0.1/held_out/tasks.jsonl", encoding="utf-8"))
-print(f"train preference pairs (v2): {n_train}  (expect ~122)")
+print(f"train preference pairs (v2): {n_train}  (expect 128)")
 print(f"held-out tasks: {n_held}  (expect 75)")
 
 # Sanity-check: confirm chosen outputs were rewritten by Llama-3.3-70B (not the v1 templates)
