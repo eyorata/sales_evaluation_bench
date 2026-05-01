@@ -74,6 +74,10 @@ If `torch.cuda.is_available()` is `False`: switch the runtime to T4 and re-run.
 import os
 if not os.path.exists("/content/sales_evaluation_bench"):
     !git clone https://github.com/eyorata/sales_evaluation_bench.git /content/sales_evaluation_bench
+else:
+    # Repo already cloned — pull latest so v2 artifacts land. Otherwise an older
+    # clone will fail the preference_pairs_v2.jsonl assertion below.
+    !cd /content/sales_evaluation_bench && git fetch origin master && git reset --hard origin/master
 %cd /content/sales_evaluation_bench
 
 # Verify required files (v2: real LLM-rewritten chosen outputs)
