@@ -89,16 +89,16 @@ print(f"held-out tasks: {n_held}")
 
 ---
 
-## Cell 3 — Load Qwen2.5-1.5B in 4-bit (the "memory saver")
+## Cell 3 — Load Qwen2.5-3B in 4-bit (upgraded from 1.5B for v2 run)
 
-We're using **Qwen2.5-1.5B-Instruct-bnb-4bit** as the judge backbone — small enough to fit Colab T4 with margin for batches, large enough to learn Tenacious-specific tone. Larger judges (3B, 4B) work but train slower; 0.5B works but underperforms on 5-marker tone tasks. The Week 11 brief permits 0.8B / 2B / 4B; 1.5B is the closest stable Unsloth-supported checkpoint.
+**v2 update (2026-05-01):** the v1 run with Qwen2.5-1.5B trained perfectly on the templated preference data (train accuracy 1.0) but scored 25% on the held-out style-guide pairs — the model overfit the template, not the tone. v2 fixes both halves: (a) chosen outputs are now LLM-rewritten in real Tenacious voice via Llama-3.3-70B with the v2 style guide as context (`training_data/preference_pairs_v2.jsonl`), and (b) backbone is bumped to **Qwen2.5-3B-Instruct-bnb-4bit** for more capacity to learn the 5-marker discrimination. 3B fits T4 with margin (~7 GB VRAM in 4-bit), trains in ~50–60 min, and is the closest match to the brief's permitted Qwen 3.5 4B class.
 
 ```python
 from unsloth import FastLanguageModel
 import torch
 
 MAX_SEQ_LEN = 2048  # covers the longest Tenacious draft (style-guide pair worst case ~1100 chars)
-BACKBONE = "unsloth/Qwen2.5-1.5B-Instruct-bnb-4bit"
+BACKBONE = "unsloth/Qwen2.5-3B-Instruct-bnb-4bit"
 
 model, tokenizer = FastLanguageModel.from_pretrained(
     model_name = BACKBONE,
@@ -163,7 +163,7 @@ def load_pairs(path):
             })
     return rows
 
-train_rows = load_pairs("training_data/preference_pairs.jsonl")
+train_rows = load_pairs("training_data/preference_pairs_v2.jsonl")  # v2: real LLM-rewritten chosens
 print(f"loaded {len(train_rows)} train pairs")
 
 # Build a small held-out dev slice for eval-during-training: use the 12 style-guide pairs
@@ -218,14 +218,14 @@ config = CPOConfig(
     beta                    = 2.0,
     simpo_gamma             = 1.0,
     cpo_alpha               = 0.0,
-    learning_rate           = 8e-6,
+    learning_rate           = 1e-5,               # v2: bumped from 8e-6 for 3B + real data
     lr_scheduler_type       = "cosine",
     warmup_ratio            = 0.1,
 
     per_device_train_batch_size = 2,
     gradient_accumulation_steps = 8,
     num_train_epochs            = 1,
-    max_steps                   = 200,            # ~30-45 min on T4
+    max_steps                   = 300,            # v2: bumped from 200; ~50-60 min on T4
     max_length                  = MAX_SEQ_LEN,
     max_prompt_length           = 1024,
 
@@ -297,7 +297,7 @@ plt.figure(figsize=(10, 5))
 plt.plot(train_steps, train_losses, color="#ff7f0e", linewidth=2, label="train SimPO loss")
 if eval_losses:
     plt.plot(eval_steps, eval_losses, color="#1f77b4", linewidth=2, marker="o", label="eval SimPO loss")
-plt.title("Tenacious-Bench v0.1 — SimPO Judge Training (Qwen2.5-1.5B + LoRA)", fontsize=13, fontweight="bold")
+plt.title("Tenacious-Bench v0.1 — SimPO Judge Training (Qwen2.5-3B + LoRA)", fontsize=13, fontweight="bold")
 plt.xlabel("step"); plt.ylabel("loss")
 plt.grid(True, linestyle="--", alpha=0.6); plt.legend()
 plt.savefig("training/loss_curve.png", dpi=140, bbox_inches="tight")
@@ -336,7 +336,7 @@ from google.colab import userdata
 
 HF_TOKEN    = userdata.get("HF_TOKEN")        # pulled from Colab secrets
 HF_USERNAME = "your-username"                 # <-- replace
-HF_REPO     = f"{HF_USERNAME}/tenacious-judge-simpo-qwen25-1.5b"
+HF_REPO     = f"{HF_USERNAME}/tenacious-judge-simpo-qwen25-3b"
 
 assert HF_TOKEN and HF_TOKEN.startswith("hf_"), "HF_TOKEN secret missing or wrong format"
 login(token=HF_TOKEN)
@@ -700,7 +700,7 @@ datasets:
 - {HF_USERNAME}/tenacious_bench_v0.1
 ---
 
-# Tenacious-Judge SimPO (Qwen2.5-1.5B + LoRA)
+# Tenacious-Judge SimPO (Qwen2.5-3B + LoRA)
 
 A small preference-tuned judge (critic) for Tenacious-style B2B sales outreach. Trained via SimPO on 128 (chosen, rejected) pairs from Tenacious-Bench v0.1.
 
