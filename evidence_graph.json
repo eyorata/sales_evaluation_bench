@@ -1,0 +1,206 @@
+{
+  "version": "0.1",
+  "subject": "Tenacious-Bench v0.1 + Path B SimPO Judge — evidence graph",
+  "produced_at": "2026-05-02T00:00:00Z",
+  "author": "Eyoel Yorat (10Academy TRP1)",
+  "schema_note": "Every numeric claim in the memo, blog, and HF model card resolves to one of these node IDs. If a downstream artifact cites a number not present here, that is a graph-integrity failure.",
+
+  "nodes": {
+    "DATASET-totals": {
+      "kind": "dataset_count",
+      "claim": "Tenacious-Bench v0.1 contains 266 tasks across 5 source modes",
+      "value": 266,
+      "source": "tenacious_bench_v0.1/composition.json",
+      "source_field": "overall.total"
+    },
+    "DATASET-partitions": {
+      "kind": "dataset_count",
+      "claim": "train=128, dev=63, held_out=75",
+      "values": {"train": 128, "dev": 63, "held_out": 75},
+      "source": "tenacious_bench_v0.1/composition.json",
+      "source_field": "[train|dev|held_out].total"
+    },
+    "DATASET-modes": {
+      "kind": "dataset_count",
+      "claim": "Per-source-mode counts: programmatic=80, trace_derived=80, multi_llm_synthesis=64, hand_authored_adversarial=30, style_guide_pair=12",
+      "source": "tenacious_bench_v0.1/composition.json",
+      "source_field": "overall.by_source_mode"
+    },
+    "DATASET-dimensions": {
+      "kind": "dataset_count",
+      "claim": "Per-dimension counts across 10 dimensions",
+      "source": "tenacious_bench_v0.1/composition.json",
+      "source_field": "overall.by_dimension"
+    },
+
+    "CONTAM-ngram": {
+      "kind": "contamination_check",
+      "claim": "0 violations on n-gram (≥8 contiguous tokens) check between held-out and train+dev",
+      "value": 0,
+      "source": "tenacious_bench_v0.1/contamination_check.json",
+      "source_field": "n_gram_check.violations_count"
+    },
+    "CONTAM-embedding": {
+      "kind": "contamination_check",
+      "claim": "0 violations on hashed-trigram cosine ≥ 0.85 check",
+      "value": 0,
+      "source": "tenacious_bench_v0.1/contamination_check.json",
+      "source_field": "embedding_similarity_check.violations_count"
+    },
+    "CONTAM-time": {
+      "kind": "contamination_check",
+      "claim": "0 violations on public-source-window check (2025-11-01..2026-04-29)",
+      "value": 0,
+      "source": "tenacious_bench_v0.1/contamination_check.json",
+      "source_field": "time_shift_check.violations_count"
+    },
+
+    "INTER-RATER-input-coherence": {
+      "kind": "inter_rater_agreement",
+      "claim": "Inter-rater agreement (within ±1, n=30) on input_coherence: 100%",
+      "value": 1.00,
+      "source": "inter_rater_agreement.md",
+      "source_field": "Per-Task Agreement Matrix"
+    },
+    "INTER-RATER-gt-verifiability": {
+      "kind": "inter_rater_agreement",
+      "claim": "Inter-rater agreement (within ±1, n=30) on ground_truth_verifiability: 100%",
+      "value": 1.00,
+      "source": "inter_rater_agreement.md"
+    },
+    "INTER-RATER-rubric-clarity": {
+      "kind": "inter_rater_agreement",
+      "claim": "Inter-rater agreement (within ±1, n=30) on rubric_application_clarity: 100%; exact-match 86.7%",
+      "value": 1.00,
+      "source": "inter_rater_agreement.md"
+    },
+    "JUDGE-CALIBRATION-llama": {
+      "kind": "cross_rater_calibration",
+      "claim": "Cross-rater agreement vs Llama-3.3-70B (n=49, single pass): 73.5% within ±1; below 80% threshold; rubric revision triggered for v0.2 signal_confidence_alignment",
+      "value": 0.735,
+      "source": "tenacious_bench_v0.1/judge_calibration.json",
+      "source_field": "agreement_rate"
+    },
+
+    "TRAIN-V1-result": {
+      "kind": "training_result",
+      "claim": "v1 SimPO LoRA on Qwen2.5-1.5B + 128 templated preference pairs: train_acc=1.00, eval_acc=0.25 throughout 200 steps. Classic overfit signature.",
+      "value": {"train_acc": 1.00, "eval_acc": 0.25, "wall_min": 20.2, "final_train_loss": 0.2689},
+      "source": "outputs/training/training_run.log",
+      "kept_as": "honest_negative_finding"
+    },
+    "TRAIN-V1-diagnosis": {
+      "kind": "diagnosis",
+      "claim": "Root cause of v1 25% held-out accuracy: training chosen outputs were templated boilerplate from convert_to_preference_pairs.py; held-out chosens were verbatim style-guide drafts. Different distributions; model learned the template, not the tone.",
+      "source": "convert_to_preference_pairs.py + manual log inspection"
+    },
+    "TRAIN-V2-fix": {
+      "kind": "data_correction",
+      "claim": "v2 fix: 128 chosen outputs rewritten by Llama-3.3-70B with v2 Style Guide as system context; gated by scoring_evaluator.score_task >= 0.7. 122 first-pass + 4 retry + 2 hand-authored fallback = 128/128.",
+      "source": "training_data/preference_pairs_v2.jsonl",
+      "cost_usd": 0.0410
+    },
+
+    "DELTA-A": {
+      "kind": "ablation_result",
+      "claim": "Delta A: trained Qwen2.5-3B SimPO judge vs untrained Qwen2.5-3B base on held-out preference accuracy (n=12 SG pairs)",
+      "value": {
+        "trained_acc": "[TBD]",
+        "baseline_acc": "[TBD]",
+        "raw_lift_pp": "[TBD]",
+        "ci_low": "[TBD]",
+        "ci_high": "[TBD]",
+        "p_value": "[TBD]",
+        "verdict": "[TBD]"
+      },
+      "source": "ablations/ablation_results.json",
+      "source_field": "delta_a"
+    },
+    "DELTA-B": {
+      "kind": "ablation_result",
+      "claim": "Delta B: trained vs prompt-engineered same-backbone (Qwen2.5-3B with Tenacious-rubric system prompt) on same n=12",
+      "value": {"raw_lift_pp": "[TBD]", "ci_low": "[TBD]", "ci_high": "[TBD]", "p_value": "[TBD]", "verdict": "[TBD]"},
+      "source": "ablations/ablation_results.json",
+      "source_field": "delta_b"
+    },
+    "DELTA-C-info": {
+      "kind": "informational_reference",
+      "claim": "Week 10 τ²-Bench retail held-out: pass@1 = 0.7267, 95% CI [0.6504, 0.7917], 30 tasks × 5 trials. Reused per Week 11 brief no-re-run rule.",
+      "value": {"pass_at_1": 0.7267, "ci_low": 0.6504, "ci_high": 0.7917},
+      "source": "Week 10 eval/score_log.json",
+      "baseline_commit": "d11a97072c49d093f7b5a3e4fe9da95b490d43ba",
+      "interpretation": "Tenacious-specific lift only; do not claim retail-domain transfer"
+    },
+
+    "COST-PARETO": {
+      "kind": "ablation_result",
+      "claim": "Per-judgment latency and projected cost",
+      "value": {
+        "trained_judge_ms": "[TBD]",
+        "prompt_judge_ms": "[TBD]",
+        "trained_cost_usd_per_judgment_runpod_4090": "[TBD]",
+        "training_one_time_cost_usd": 0.0
+      },
+      "source": "ablations/ablation_results.json",
+      "source_field": "cost_pareto"
+    },
+
+    "BUDGET-spend": {
+      "kind": "cost_tally",
+      "claim": "Total Week 11 OpenRouter spend across all build phases",
+      "value": 0.0410,
+      "source": "cost/openrouter_calls.jsonl",
+      "envelope_usd": 10.0,
+      "envelope_remaining_usd": 9.959
+    },
+
+    "PUB-dataset": {
+      "kind": "public_artifact",
+      "claim": "HuggingFace dataset publication",
+      "url": "https://huggingface.co/datasets/eyorata/tenacious_bench_v0.1",
+      "license": "CC-BY-4.0",
+      "status": "[TBD: posted | pending]"
+    },
+    "PUB-model": {
+      "kind": "public_artifact",
+      "claim": "HuggingFace LoRA adapter publication",
+      "url": "https://huggingface.co/eyorata/tenacious-judge-simpo-qwen25-3b",
+      "license": "CC-BY-4.0",
+      "status": "[TBD: posted | pending]"
+    },
+    "PUB-blog": {
+      "kind": "public_artifact",
+      "claim": "Technical blog post",
+      "url": "[TBD]",
+      "platform": "[TBD: HuggingFace blog | personal site | Substack]",
+      "word_count": 2244,
+      "status": "[TBD: posted | pending]"
+    },
+    "PUB-community": {
+      "kind": "public_artifact",
+      "claim": "Community-engagement artifact",
+      "kind_specific": "GitHub issue on τ²-Bench repo",
+      "url": "[TBD]",
+      "status": "[TBD: posted | pending]"
+    }
+  },
+
+  "edges": [
+    {"from": "PUB-blog", "cites": ["DATASET-totals", "DATASET-partitions", "CONTAM-ngram", "CONTAM-embedding", "CONTAM-time", "TRAIN-V1-result", "TRAIN-V1-diagnosis", "TRAIN-V2-fix", "DELTA-A", "DELTA-B", "DELTA-C-info", "COST-PARETO", "BUDGET-spend"]},
+    {"from": "memo/page1", "cites": ["DELTA-A", "DELTA-B", "COST-PARETO", "BUDGET-spend", "DELTA-C-info"]},
+    {"from": "memo/page2", "cites": ["INTER-RATER-input-coherence", "INTER-RATER-gt-verifiability", "INTER-RATER-rubric-clarity", "JUDGE-CALIBRATION-llama", "TRAIN-V1-diagnosis"]},
+    {"from": "PUB-community", "cites": ["DATASET-totals", "CONTAM-ngram", "CONTAM-embedding", "CONTAM-time"]},
+    {"from": "PUB-model card", "cites": ["TRAIN-V2-fix", "DELTA-A", "DELTA-B", "DELTA-C-info", "JUDGE-CALIBRATION-llama"]}
+  ],
+
+  "integrity_check_command": "python -m generation_scripts.verify_evidence_graph  # checks every numeric claim resolves to a real source field; queued as v0.2 deliverable",
+  "open_TBDs": [
+    "DELTA-A.value (all subfields)",
+    "DELTA-B.value (all subfields)",
+    "COST-PARETO.value (latencies, per-judgment cost)",
+    "PUB-dataset.status",
+    "PUB-model.status",
+    "PUB-blog.url + status",
+    "PUB-community.url + status"
+  ]
+}
