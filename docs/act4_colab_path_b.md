@@ -76,15 +76,22 @@ if not os.path.exists("/content/sales_evaluation_bench"):
     !git clone https://github.com/eyorata/sales_evaluation_bench.git /content/sales_evaluation_bench
 %cd /content/sales_evaluation_bench
 
-# Verify required files
-assert os.path.exists("training_data/preference_pairs.jsonl"), "preference_pairs.jsonl missing"
+# Verify required files (v2: real LLM-rewritten chosen outputs)
+TRAIN_PATH = "training_data/preference_pairs_v2.jsonl"
+assert os.path.exists(TRAIN_PATH), f"{TRAIN_PATH} missing — pull latest from origin/master"
 assert os.path.exists("tenacious_bench_v0.1/held_out/tasks.jsonl"), "held_out/tasks.jsonl missing"
 
 import json
-n_train = sum(1 for _ in open("training_data/preference_pairs.jsonl", encoding="utf-8"))
+n_train = sum(1 for _ in open(TRAIN_PATH, encoding="utf-8"))
 n_held = sum(1 for _ in open("tenacious_bench_v0.1/held_out/tasks.jsonl", encoding="utf-8"))
-print(f"train preference pairs: {n_train}")
-print(f"held-out tasks: {n_held}")
+print(f"train preference pairs (v2): {n_train}  (expect ~122)")
+print(f"held-out tasks: {n_held}  (expect 75)")
+
+# Sanity-check: confirm chosen outputs were rewritten by Llama-3.3-70B (not the v1 templates)
+sample = json.loads(open(TRAIN_PATH, encoding="utf-8").readline())
+prov = sample.get("chosen_provenance", "MISSING")
+assert "rewrite_v2" in prov, f"chosen_provenance is '{prov}', expected 'rewrite_v2' — wrong file?"
+print(f"first-row chosen_provenance: {prov}  (rewrite_v2 confirmed)")
 ```
 
 ---
