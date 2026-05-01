@@ -285,6 +285,8 @@ import matplotlib.pyplot as plt
 import json
 import os
 
+os.makedirs("training", exist_ok=True)   # must exist before plt.savefig
+
 history = trainer.state.log_history
 train_steps = [x["step"] for x in history if "loss" in x and "eval_loss" not in x]
 train_losses = [x["loss"] for x in history if "loss" in x and "eval_loss" not in x]
@@ -302,7 +304,6 @@ plt.savefig("training/loss_curve.png", dpi=140, bbox_inches="tight")
 plt.show()
 
 # Persist training_run.log
-os.makedirs("training", exist_ok=True)
 with open("training/training_run.log", "w", encoding="utf-8") as f:
     f.write("# Tenacious-Bench v0.1 — Path B SimPO Training Run\n\n")
     f.write(f"backbone: {BACKBONE}\n")
@@ -327,14 +328,17 @@ print("wrote training/training_run.log")
 
 ## Cell 9 — Save adapter locally + push to HuggingFace
 
+**Setup (one-time):** in Colab's left sidebar, click the 🔑 (key icon) → **Secrets** → **Add new secret**. Name it `HF_TOKEN`, paste your write-scope token from https://huggingface.co/settings/tokens, toggle "Notebook access" ON. Never paste the token directly into a cell — secrets are scoped to the runtime and survive restarts; pasted tokens leak into logs and version history.
+
 ```python
 from huggingface_hub import login
+from google.colab import userdata
 
-# Paste your write token here OR set HF_TOKEN as a secret in Colab
-HF_TOKEN = "hf_..."           # <-- replace
-HF_USERNAME = "your-username" # <-- replace
-HF_REPO = f"{HF_USERNAME}/tenacious-judge-simpo-qwen25-1.5b"
+HF_TOKEN    = userdata.get("HF_TOKEN")        # pulled from Colab secrets
+HF_USERNAME = "your-username"                 # <-- replace
+HF_REPO     = f"{HF_USERNAME}/tenacious-judge-simpo-qwen25-1.5b"
 
+assert HF_TOKEN and HF_TOKEN.startswith("hf_"), "HF_TOKEN secret missing or wrong format"
 login(token=HF_TOKEN)
 
 ADAPTER_PATH = "outputs/tenacious_judge_simpo"
@@ -346,6 +350,8 @@ model.push_to_hub(HF_REPO, token=HF_TOKEN)
 tokenizer.push_to_hub(HF_REPO, token=HF_TOKEN)
 print("pushed to:", f"https://huggingface.co/{HF_REPO}")
 ```
+
+> **Token-handling rule:** if you ever paste a real `hf_...` token into a cell or chat (which makes it a tuple-bug magnet too — a stray trailing comma turns it into a tuple and `login()` errors with `'tuple' object has no attribute 'startswith'`), revoke it at https://huggingface.co/settings/tokens, generate a fresh one, and switch to Colab Secrets before continuing.
 
 ---
 
