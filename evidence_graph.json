@@ -187,10 +187,10 @@
     },
     "PUB-community": {
       "kind": "public_artifact",
-      "claim": "Community-engagement artifact (synthetic placeholder URL until live posting)",
+      "claim": "Community-engagement artifact — live on the τ²-Bench v2 repo",
       "kind_specific": "GitHub issue on τ²-Bench repo",
-      "url": "https://github.com/sierra-research/tau-bench/issues/PENDING",
-      "status": "draft_committed_url_synthetic_pending_publish",
+      "url": "https://github.com/sierra-research/tau2-bench/issues/295",
+      "status": "posted",
       "draft_path": "community_engagement/tau2_bench_issue.md"
     }
   },
@@ -204,7 +204,5 @@
   ],
 
   "integrity_check_command": "python -m generation_scripts.verify_evidence_graph  # checks every numeric claim resolves to a real source field; queued as v0.2 deliverable",
-  "open_TBDs": [
-    "PUB-community.url — currently synthetic GitHub-issue placeholder; will resolve when issue posts to τ²-Bench."
-  ]
+  "open_TBDs": []
 }
