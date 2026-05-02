@@ -6,7 +6,7 @@
 |---|---|
 | 🤗 HuggingFace dataset | https://huggingface.co/datasets/eyorata/tenacious_bench_v0.1 |
 | 🤗 HuggingFace model (LoRA adapter) | https://huggingface.co/eyorata/tenacious-judge-simpo-qwen25-3b |
-| 📝 Technical blog post | https://eyorata.substack.com/p/tenacious-bench-v0-1 *(URL pending; placeholder until publish)* |
+| 📝 Technical blog post | https://dev.to/eyorata/when-your-training-loss-is-lying-to-you-building-a-tenacious-specific-sales-outreach-benchmark-2jgd |
 | 💬 Community engagement (τ²-Bench GitHub issue) | https://github.com/sierra-research/tau-bench/issues/PENDING *(URL pending; draft in `community_engagement/tau2_bench_issue.md`)* |
 | 📦 Source code | https://github.com/eyorata/sales_evaluation_bench |
 
@@ -15,7 +15,7 @@
 ## Status
 
 - **Acts I + II + III + IV complete.** v2 SimPO LoRA training run on Qwen2.5-3B with 128 LLM-rewritten preference pairs lands the held-out preference accuracy at **0.417** vs 0.167 untrained baseline (Delta A = +25 pp, p=0.0316).
-- **Act V publication in progress** — blog and community-engagement URLs above are synthetic placeholders that will resolve to live URLs as those artifacts post on Day 7.
+- **Act V partial.** Blog post live on dev.to (link above). HuggingFace dataset + model artifacts pending the publish-script run. Community-engagement URL still pending; the τ²-Bench GitHub-issue draft is at [`community_engagement/tau2_bench_issue.md`](community_engagement/tau2_bench_issue.md).
 
 ---
 

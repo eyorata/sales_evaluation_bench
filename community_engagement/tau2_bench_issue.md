@@ -14,7 +14,7 @@ I built a complementary evaluation benchmark, **Tenacious-Bench v0.1**, that gra
 
 Dataset: https://huggingface.co/datasets/eyorata/tenacious_bench_v0.1
 Code: https://github.com/eyorata/sales_evaluation_bench
-Blog post (with the full audit and method): `[BLOG_URL]`
+Blog post (with the full audit and method): https://dev.to/eyorata/when-your-training-loss-is-lying-to-you-building-a-tenacious-specific-sales-outreach-benchmark-2jgd
 
 ### The gap, briefly
 

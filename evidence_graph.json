@@ -179,11 +179,11 @@
     },
     "PUB-blog": {
       "kind": "public_artifact",
-      "claim": "Technical blog post (synthetic placeholder URL until live publish)",
-      "url": "https://eyorata.substack.com/p/tenacious-bench-v0-1",
-      "platform": "Substack",
+      "claim": "Technical blog post — live on dev.to",
+      "url": "https://dev.to/eyorata/when-your-training-loss-is-lying-to-you-building-a-tenacious-specific-sales-outreach-benchmark-2jgd",
+      "platform": "dev.to",
       "word_count": 2244,
-      "status": "draft_committed_url_synthetic_pending_publish"
+      "status": "posted"
     },
     "PUB-community": {
       "kind": "public_artifact",
@@ -205,7 +205,6 @@
 
   "integrity_check_command": "python -m generation_scripts.verify_evidence_graph  # checks every numeric claim resolves to a real source field; queued as v0.2 deliverable",
   "open_TBDs": [
-    "PUB-blog.url — currently synthetic Substack placeholder; will resolve when v2 blog posts.",
     "PUB-community.url — currently synthetic GitHub-issue placeholder; will resolve when issue posts to τ²-Bench."
   ]
 }
