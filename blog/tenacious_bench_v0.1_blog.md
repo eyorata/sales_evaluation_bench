@@ -1,6 +1,6 @@
 # When Your Training Loss Is Lying to You: Building a Tenacious-Specific Sales-Outreach Benchmark
 
-**Eyoel Yorat · 2026-05-02 · ~1,800 words**
+**Eyoel Nebiyu · 2026-05-02 · ~1,800 words**
 
 > *Status: v2 SimPO training run completed 2026-05-01 on Colab T4. Final Delta A and Delta B numbers below are live. The v1 25%-on-held-out story is preserved as the publishable negative diagnosis.*
 
@@ -154,7 +154,7 @@ Week 10 trace pool, probe library, failure taxonomy, and Tenacious Style Guide v
 ```bibtex
 @dataset{tenacious_bench_v01_2026,
   title  = {Tenacious-Bench: a B2B sales-outreach evaluation benchmark for engineering-outsourcing agents},
-  author = {Yorat, Eyoel and 10Academy TRP1 cohort},
+  author = {Nebiyu, Eyoel and 10Academy TRP1 cohort},
   year   = 2026, version = {0.1}, license = {CC-BY-4.0}, publisher = {HuggingFace}
 }
 ```

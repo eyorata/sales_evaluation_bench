@@ -1,6 +1,6 @@
 # Memo to Tenacious CEO and CFO
 
-**From:** Eyoel Yorat (10Academy TRP1)
+**From:** Eyoel Nebiyu (10Academy TRP1)
 **Date:** 2026-05-02
 **Subject:** Tenacious-Bench v0.1 + Path B Judge — Decision and Skeptic's Appendix
 **Length:** 2 pages
@@ -86,4 +86,4 @@ The trained judge ships behind a runtime flag (`TENACIOUS_JUDGE_ENABLED=true`). 
 
 What's the bar that makes this judge worth deploying — a positive Delta A at p<0.05, a 5pp accuracy lift on a calibrated 30-pair held-out slice, or proof that *no* production draft would have been falsely rejected over 1,000 historical sends? Each bar implies a different next-week's work. I have a clear plan for each; the right question is which one you'd accept.
 
-— Eyoel Yorat
+— Eyoel Nebiyu

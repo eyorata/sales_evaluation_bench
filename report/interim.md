@@ -2,7 +2,7 @@
 
 **Date:** 2026-04-30
 **Project:** Week 11 — Building the Sales Evaluation Bench
-**Author:** Eyoel Yorat (10Academy TRP1)
+**Author:** Eyoel Nebiyu (10Academy TRP1)
 
 ---
 

@@ -765,7 +765,7 @@ FastLanguageModel.for_inference(model)
 ```bibtex
 @misc{{tenacious_judge_simpo_2026,
   title={{Tenacious-Judge SimPO: a small preference-tuned judge for B2B sales outreach}},
-  author={{Yorat, Eyoel}},
+  author={{Nebiyu, Eyoel}},
   year={{2026}},
   howpublished={{HuggingFace}},
   license={{CC-BY-4.0}}

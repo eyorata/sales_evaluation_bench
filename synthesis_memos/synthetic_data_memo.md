@@ -1,6 +1,6 @@
 # Synthesis Memo 1 — Best Practices and Lessons Learned on Synthetic Data for Language Models (Liu et al., COLM 2024)
 
-**Memo author:** Eyoel Yorat (10Academy TRP1)  ·  **Date:** 2026-04-30  ·  **Length:** ≈1 page
+**Memo author:** Eyoel Nebiyu (10Academy TRP1)  ·  **Date:** 2026-04-30  ·  **Length:** ≈1 page
 
 ## What the paper says
 

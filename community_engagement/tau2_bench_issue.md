@@ -58,7 +58,7 @@ I've also drafted a small pull request adding a contamination-check script that'
 
 Happy to discuss in the comments. Thanks for the work on τ²-retail; it's been the right starting baseline for me, and the gap I'm describing is honestly less of a "τ²-retail problem" and more of a "no-one-has-built-this-other-slice-yet" problem.
 
-— Eyoel Yorat (`@eyorata`)
+— Eyoel Nebiyu (`@eyorata`)
 
 ---
 

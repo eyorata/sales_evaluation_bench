@@ -1,6 +1,6 @@
 # Methodology Rationale — Path B Preference-Pair Construction
 
-**Author:** Eyoel Yorat (10Academy TRP1) · **Date:** 2026-05-01 · **Length:** one page
+**Author:** Eyoel Nebiyu (10Academy TRP1) · **Date:** 2026-05-01 · **Length:** one page
 
 ## Why these (chosen, rejected) pairs are the right training data for Path B on Tenacious
 

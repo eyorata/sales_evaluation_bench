@@ -277,7 +277,7 @@ These are stated explicitly so reviewers don't have to dig:
 ```bibtex
 @dataset{tenacious_bench_v01_2026,
   title  = {Tenacious-Bench: a B2B sales-outreach evaluation benchmark for engineering-outsourcing agents},
-  author = {Yorat, Eyoel and 10Academy TRP1 cohort},
+  author = {Nebiyu, Eyoel and 10Academy TRP1 cohort},
   year   = 2026,
   version = {0.1},
   license = {CC-BY-4.0},
@@ -288,7 +288,7 @@ These are stated explicitly so reviewers don't have to dig:
 
 ## Attribution and credits
 
-- **Author:** Eyoel Yorat (10Academy TRP1 cohort, 2026).
+- **Author:** Eyoel Nebiyu (10Academy TRP1 cohort, 2026).
 - **Source corpus:** Week 10 trace pool, probe library, failure taxonomy, and Tenacious Style Guide v2 were committed-as-given by the 10Academy program.
 - **Public sources referenced:** Crunchbase ODM 1,001-company sample, layoffs.fyi CSV, all within the documented 2025-11-01..2026-04-29 window.
 - **Models used:** DeepSeek-V3.2 + Qwen3-Next-80B-A3B + Llama-3.3-70B (all via OpenRouter dev-tier) for synthesis and rewriting; Qwen2.5-3B-Instruct (via Unsloth + TRL `CPOTrainer`) as the trained Path B backbone.

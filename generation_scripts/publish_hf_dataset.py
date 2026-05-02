@@ -180,7 +180,7 @@ python scoring_evaluator.py --self-test
 ```bibtex
 @dataset{{tenacious_bench_v01_2026,
   title  = {{Tenacious-Bench: a B2B sales-outreach evaluation benchmark}},
-  author = {{Yorat, Eyoel and 10Academy TRP1 cohort}},
+  author = {{Nebiyu, Eyoel and 10Academy TRP1 cohort}},
   year   = 2026, version = {{0.1}}, license = {{CC-BY-4.0}}, publisher = {{HuggingFace}}
 }}
 ```

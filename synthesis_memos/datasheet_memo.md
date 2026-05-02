@@ -1,6 +1,6 @@
 # Synthesis Memo 2 — Datasheets for Datasets (Gebru et al., 2021) and Data Cards (Pushkarna et al., FAccT 2022)
 
-**Memo author:** Eyoel Yorat (10Academy TRP1)  ·  **Date:** 2026-04-30  ·  **Length:** ≈1 page
+**Memo author:** Eyoel Nebiyu (10Academy TRP1)  ·  **Date:** 2026-04-30  ·  **Length:** ≈1 page
 
 ## What both papers ask for
 

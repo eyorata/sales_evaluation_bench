@@ -2,7 +2,7 @@
   "version": "0.1",
   "subject": "Tenacious-Bench v0.1 + Path B SimPO Judge — evidence graph",
   "produced_at": "2026-05-02T00:00:00Z",
-  "author": "Eyoel Yorat (10Academy TRP1)",
+  "author": "Eyoel Nebiyu (10Academy TRP1)",
   "schema_note": "Every numeric claim in the memo, blog, and HF model card resolves to one of these node IDs. If a downstream artifact cites a number not present here, that is a graph-integrity failure.",
 
   "nodes": {
