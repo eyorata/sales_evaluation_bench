@@ -20,27 +20,187 @@ from .style_guide_seed import generate as gen_style_guide
 from .common import DATASET_DIR, deterministic_seed, write_jsonl
 
 
-JUDGE_THRESHOLD = 4  # Pointwise threshold per Liu et al. style judge filter.
+JUDGE_THRESHOLD = 4               # Pointwise threshold per Liu et al. style judge filter.
+PAIRWISE_DUP_THRESHOLD = 0.97     # Hashed-trigram cosine; above this, two tasks are
+                                   # considered near-duplicates and one wins via tie-break.
+PAIRWISE_SCOPED_MODES = {"multi_llm_synthesis"}
+                                   # Pairwise comparison runs ONLY on these source modes.
+                                   # Rationale: programmatic + trace_derived modes are
+                                   # intentionally similar by parameter sweep — two
+                                   # programmatic tasks differing only in stack name or
+                                   # demand count are NOT duplicates, they are the dataset's
+                                   # combinatorial coverage. Real near-duplicates arise in
+                                   # multi-LLM synthesis when LLM-generated variants from
+                                   # the same seed_id drift to similar text; that's where
+                                   # the pairwise gate is semantically meaningful. Hand-
+                                   # authored adversarial and style-guide pairs are unique
+                                   # by construction.
+PAIRWISE_GROUP_KEY = ("source_mode", "dimension")
+                                   # Within the scoped modes, compare pairs WITHIN a
+                                   # (source_mode, dimension) group only.
+
+
+def _hashed_trigram_vec(text: str, dim: int = 4096) -> list[int]:
+    """Cheap, deterministic surrogate for sentence-transformers cosine. Same
+    function shape as contamination_check.py to keep the metric consistent."""
+    import hashlib
+    counts = [0] * dim
+    text = "".join(c for c in text if c.isalnum() or c == " ")
+    toks = text.split()
+    if len(toks) < 3:
+        return counts
+    for i in range(len(toks) - 2):
+        h = int(hashlib.md5((" ".join(toks[i:i + 3])).encode("utf-8")).hexdigest()[:8], 16)
+        counts[h % dim] += 1
+    return counts
+
+
+def _cos(a: list[int], b: list[int]) -> float:
+    import math
+    dot = sum(x * y for x, y in zip(a, b))
+    na = math.sqrt(sum(x * x for x in a))
+    nb = math.sqrt(sum(y * y for y in b))
+    return (dot / (na * nb)) if (na and nb) else 0.0
+
+
+def _task_text_for_pairwise(task: dict[str, Any]) -> str:
+    """Concatenated input the agent sees, for pairwise-similarity comparison."""
+    parts = [task["input"].get("scenario", "")]
+    for turn in task["input"].get("prior_thread") or []:
+        if turn.get("role") != "system":
+            parts.append(turn.get("body", ""))
+    return " ".join(parts).lower()
+
+
+def _mean_judge_score(task: dict[str, Any]) -> float:
+    s = task.get("metadata", {}).get("judge_scores") or {}
+    keys = ("input_coherence", "ground_truth_verifiability", "rubric_application_clarity")
+    vals = [s.get(k, 0) for k in keys]
+    return sum(vals) / max(1, len(vals))
+
+
+def _family_diversity_key(task: dict[str, Any]) -> tuple[str, str]:
+    """Tie-breaking key: prefer tasks where author and judge are distinct families.
+    Tasks with `human`/`programmatic_v1`/`trace_derived_v1` authors get a sentinel
+    family so they don't artificially win the diversity check."""
+    md = task.get("metadata", {}) or {}
+    a = md.get("author_model", "human")
+    j = md.get("judge_model", "human")
+    a_fam = a.split("/")[0] if "/" in a else "deterministic"
+    j_fam = j.split("/")[0] if "/" in j else "deterministic"
+    return (a_fam, j_fam)
+
+
+def pairwise_dedup(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Pairwise near-duplicate detection with tie-breaking.
+
+    Pairs are compared ONLY within the same (source_mode, dimension) group.
+    Cross-group comparisons are skipped because templated boilerplate inflates
+    cosine similarity for tasks that probe different failure modes.
+
+    Two tasks are near-duplicates if their input text has hashed-trigram cosine
+    >= PAIRWISE_DUP_THRESHOLD (0.97). For each near-dup pair, one survives via
+    this deterministic tie-break:
+      1. Higher mean of judge_scores wins.
+      2. If tied, more diverse author/judge family pair wins (distinct
+         families beat same-family-or-deterministic pairs).
+      3. If still tied, lower task_id wins (deterministic fallback).
+
+    Returns (kept, dropped). Each dropped row carries `pairwise_dup_reason`
+    pointing at the survivor's task_id, ready to log.
+    """
+    if len(rows) < 2:
+        return rows, []
+    # Group by (source_mode, dimension) so pairwise comparison is in-group only.
+    groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for r in rows:
+        key = (r.get(PAIRWISE_GROUP_KEY[0], "?"), r.get(PAIRWISE_GROUP_KEY[1], "?"))
+        groups.setdefault(key, []).append(r)
+
+    dropped_ids: set[str] = set()
+    decisions: list[dict[str, Any]] = []
+    for key, group in groups.items():
+        # Scope: only run pairwise on the source modes where it's semantically
+        # meaningful (multi_llm_synthesis variants from the same seed_id).
+        if key[0] not in PAIRWISE_SCOPED_MODES:
+            continue
+        if len(group) < 2:
+            continue
+        vecs = [(r["task_id"], _hashed_trigram_vec(_task_text_for_pairwise(r)), r) for r in group]
+        for i in range(len(vecs)):
+            if vecs[i][0] in dropped_ids:
+                continue
+            for j in range(i + 1, len(vecs)):
+                if vecs[j][0] in dropped_ids:
+                    continue
+                sim = _cos(vecs[i][1], vecs[j][1])
+                if sim < PAIRWISE_DUP_THRESHOLD:
+                    continue
+                ra, rb = vecs[i][2], vecs[j][2]
+                sa, sb = _mean_judge_score(ra), _mean_judge_score(rb)
+                if sa != sb:
+                    winner, loser = (ra, rb) if sa > sb else (rb, ra)
+                    tie_break_used = "judge_score"
+                else:
+                    fa, fb = _family_diversity_key(ra), _family_diversity_key(rb)
+                    a_diverse = fa[0] != fa[1] and fa[0] != "deterministic"
+                    b_diverse = fb[0] != fb[1] and fb[0] != "deterministic"
+                    if a_diverse and not b_diverse:
+                        winner, loser = ra, rb
+                        tie_break_used = "family_diversity"
+                    elif b_diverse and not a_diverse:
+                        winner, loser = rb, ra
+                        tie_break_used = "family_diversity"
+                    else:
+                        winner, loser = (ra, rb) if ra["task_id"] < rb["task_id"] else (rb, ra)
+                        tie_break_used = "task_id_lex"
+                dropped_ids.add(loser["task_id"])
+                decisions.append({
+                    "group": list(key),
+                    "kept": winner["task_id"],
+                    "dropped": loser["task_id"],
+                    "cosine": round(sim, 4),
+                    "tie_break": tie_break_used,
+                    "kept_mean_score": round(_mean_judge_score(winner), 3),
+                    "dropped_mean_score": round(_mean_judge_score(loser), 3),
+                })
+
+    kept = [r for r in rows if r["task_id"] not in dropped_ids]
+    dropped = [
+        {**r, "pairwise_dup_reason": next(d for d in decisions if d["dropped"] == r["task_id"])}
+        for r in rows if r["task_id"] in dropped_ids
+    ]
+    return kept, dropped
 
 
 def judge_filter(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Filter tasks by metadata.judge_scores >= JUDGE_THRESHOLD on each dimension.
+    """Two-stage judge filter:
+      Stage A — pointwise: reject any task whose metadata.judge_scores has any
+        sub-score below JUDGE_THRESHOLD on input_coherence,
+        ground_truth_verifiability, or rubric_application_clarity.
+      Stage B — pairwise: detect near-duplicate accepted tasks (hashed-trigram
+        cosine >= PAIRWISE_DUP_THRESHOLD). Tie-break per pairwise_dedup() and
+        emit one survivor per duplicate cluster.
 
-    Tasks authored deterministically already carry the synthetic judge_scores their
-    template promises. The filter is a real gate: any task with a missing or low
-    score is rejected. Online-routed tasks would have judge_scores filled in by
-    the judge model; offline tasks use the template's a-priori scores.
+    Returns (accepted, rejected). Each rejected row carries either
+    `metadata.judge_scores` (pointwise reject) or `pairwise_dup_reason`
+    (pairwise reject) so the downstream log can attribute every drop.
     """
-    accepted: list[dict[str, Any]] = []
-    rejected: list[dict[str, Any]] = []
+    pointwise_accepted: list[dict[str, Any]] = []
+    pointwise_rejected: list[dict[str, Any]] = []
     for r in rows:
         scores = r.get("metadata", {}).get("judge_scores") or {}
-        ok = all(scores.get(k, 0) >= JUDGE_THRESHOLD for k in ("input_coherence", "ground_truth_verifiability", "rubric_application_clarity"))
+        ok = all(scores.get(k, 0) >= JUDGE_THRESHOLD for k in (
+            "input_coherence", "ground_truth_verifiability", "rubric_application_clarity"
+        ))
         if ok:
-            accepted.append(r)
+            pointwise_accepted.append(r)
         else:
-            rejected.append(r)
-    return accepted, rejected
+            pointwise_rejected.append({**r, "reject_reason": "pointwise_below_threshold"})
+
+    accepted, pairwise_rejected = pairwise_dedup(pointwise_accepted)
+    pairwise_rejected = [{**r, "reject_reason": "pairwise_near_duplicate"} for r in pairwise_rejected]
+    return accepted, pointwise_rejected + pairwise_rejected
 
 
 def check_no_leakage(rows: list[dict[str, Any]]) -> list[str]:
@@ -199,12 +359,33 @@ def main() -> int:
         return 1
     print("preference-leakage check: PASS")
 
-    # 3) Judge-filter (Liu et al. style, threshold 4 per dimension).
+    # 3) Judge-filter: pointwise (per Liu et al.) + pairwise near-duplicate dedup.
     accepted, rejected = judge_filter(all_rows)
-    print(f"judge-filter: accepted={len(accepted)} rejected={len(rejected)} threshold={JUDGE_THRESHOLD}")
-    write_jsonl(DATASET_DIR / "judge_filter_log.jsonl", [
-        {"task_id": r["task_id"], "verdict": "rejected", "scores": r.get("metadata", {}).get("judge_scores")} for r in rejected
-    ])
+    pointwise_n = sum(1 for r in rejected if r.get("reject_reason") == "pointwise_below_threshold")
+    pairwise_n = sum(1 for r in rejected if r.get("reject_reason") == "pairwise_near_duplicate")
+    print(
+        f"judge-filter: accepted={len(accepted)} rejected={len(rejected)} "
+        f"(pointwise={pointwise_n} pairwise_dup={pairwise_n}) "
+        f"thresholds: pointwise>={JUDGE_THRESHOLD} pairwise_cosine>={PAIRWISE_DUP_THRESHOLD}"
+    )
+    # Rich log entries: separate the two reject paths so reviewers can audit each.
+    log_rows = []
+    for r in rejected:
+        reason = r.get("reject_reason", "unknown")
+        entry = {
+            "task_id": r["task_id"],
+            "verdict": "rejected",
+            "reject_reason": reason,
+            "source_mode": r.get("source_mode"),
+            "dimension": r.get("dimension"),
+        }
+        if reason == "pointwise_below_threshold":
+            entry["scores"] = r.get("metadata", {}).get("judge_scores")
+            entry["threshold"] = JUDGE_THRESHOLD
+        elif reason == "pairwise_near_duplicate":
+            entry["pairwise_dup_reason"] = r.get("pairwise_dup_reason")
+        log_rows.append(entry)
+    write_jsonl(DATASET_DIR / "judge_filter_log.jsonl", log_rows)
 
     # 4) Partition.
     parts = partition(accepted, seed=args.seed)

@@ -29,19 +29,21 @@
 
 | Metric | Value |
 |--------|-------|
-| Total tasks | **266** |
+| Total tasks | **263** (266 authored − 3 dropped by pairwise near-dup gate) |
 | Dimensions | 10 |
-| Partitions | train (128), dev (63), held_out (75) |
+| Partitions | train (128), dev (63), held_out (75) (post-dedup; counts may shift ±1 with seed) |
 | Source modes | 5 (programmatic, trace-derived, multi-LLM synthesis, hand-authored adversarial, style-guide pair) |
 | License | CC-BY-4.0 |
 
 | Source mode | n | Share |
 |---|---:|---:|
-| Programmatic (parameter sweeps) | 80 | 30.1% |
-| Trace-derived (Week 10 traces) | 80 | 30.1% |
-| Multi-LLM synthesis (DeepSeek↔Qwen3, Llama-3.3-70B as third-family judge) | 64 | 24.1% |
-| Hand-authored adversarial | 30 | 11.3% |
-| Style-guide pair (verbatim from Tenacious Style Guide v2) | 12 | 4.5% |
+| Programmatic (parameter sweeps) | 80 | 30.4% |
+| Trace-derived (Week 10 traces) | 80 | 30.4% |
+| Multi-LLM synthesis (DeepSeek↔Qwen3, Llama-3.3-70B as third-family judge) | 61 | 23.2% |
+| Hand-authored adversarial | 30 | 11.4% |
+| Style-guide pair (verbatim from Tenacious Style Guide v2) | 12 | 4.6% |
+
+The 3 dropped tasks are logged in [`tenacious_bench_v0.1/judge_filter_log.jsonl`](tenacious_bench_v0.1/judge_filter_log.jsonl) with full pairwise rationale (cosine, tie-breaker used, both sides' mean judge scores).
 
 Per-dimension counts are in [`tenacious_bench_v0.1/composition.json`](tenacious_bench_v0.1/composition.json). Datasheet (Gebru + Pushkarna) is at [`datasheet.md`](datasheet.md).
 
@@ -102,7 +104,12 @@ print(f"Delta A raw_lift_pp: {results['delta_a']['raw_lift_pp']}")
 print(f"Delta A p_value: {results['delta_a']['bootstrap_p_value']}")
 ```
 
-To re-train end-to-end (50–60 min on free Colab T4), run `docs/act4_colab_path_b.md` cell-by-cell in Colab. The HuggingFace adapter at the URL above is what the script produces.
+To re-train end-to-end:
+
+- **Locally / on RunPod:** `python training_scripts/train_simpo.py`. The script pins the HF model revision (`MODEL_REVISION`), seeds every RNG (`random`/`numpy`/`torch`/`torch.cuda`/`transformers`) from a single `SEED=3407`, and resolves the actual revision SHA at runtime so the run is byte-traceable in `training/training_run.log`.
+- **On Colab T4 (free):** open `docs/act4_colab_path_b.md` and run cells 1–17 in order. ~50–60 min.
+
+Both paths produce the same LoRA adapter at the HuggingFace URL above.
 
 ### 5. (Optional) Score your own agent against Tenacious-Bench
 
@@ -151,8 +158,15 @@ sales_evaluation_bench/
 │   ├── preference_pairs_v2.jsonl    # v2 (Llama-3.3-70B rewrites; canonical training set)
 │   └── prompts_only.jsonl
 │
+├── training_scripts/
+│   └── train_simpo.py           # canonical .py training script — runnable outside Colab,
+│                                  # pins HF revision, propagates SEED=3407 to all RNGs,
+│                                  # resolves actual revision SHA at runtime, writes
+│                                  # training/training_run.log + loss_curve.png
+│
 ├── training/
-│   ├── training_run.log         # backbone, hyperparameters, per-step loss, eval rows
+│   ├── training_run.log         # backbone, hyperparameters, per-step loss, eval rows,
+│   │                              # backbone_revision_pinned + backbone_revision_actual
 │   └── loss_curve.png           # SimPO training loss + eval-margin overlay
 │
 ├── ablations/

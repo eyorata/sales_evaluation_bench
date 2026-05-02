@@ -54,6 +54,22 @@ The full path-specific synthesis memos (one per paper, ≤1 page) will land in `
 
 The rotation is logged per task in `metadata.author_model` and `metadata.judge_model`. A static check (`generation_scripts/check_no_leakage.py`) refuses any task where the family of `author_model` matches the family of `judge_model`.
 
+### Two-stage judge filter (pointwise + pairwise)
+
+Every authored task passes two gates before being admitted to the dataset (`build_dataset.judge_filter()`):
+
+**Stage A — pointwise.** Each task carries `metadata.judge_scores` for `input_coherence`, `ground_truth_verifiability`, and `rubric_application_clarity` (1–5 each). Any sub-score below `JUDGE_THRESHOLD = 4` is a hard reject. Online synthesis tasks get scores from the cross-family judge; deterministic modes (programmatic / trace-derived / hand-authored / style-guide) carry a-priori scores from the template, since the structural rubric is guaranteed by construction.
+
+**Stage B — pairwise near-duplicate detection.** Within `multi_llm_synthesis` source-mode only (where same-seed LLM variants can drift to similar prompts), the filter computes hashed-trigram cosine similarity between every pair of tasks in the same `(source_mode, dimension)` group. Pairs with cosine ≥ `PAIRWISE_DUP_THRESHOLD = 0.97` are near-duplicates; one survives via this deterministic tie-break:
+
+1. Higher mean of `judge_scores` wins.
+2. If tied, the pair with more diverse `(author_family, judge_family)` wins (different families beat same-family-or-deterministic pairs).
+3. If still tied, lower `task_id` wins.
+
+The pairwise step is **scoped to `multi_llm_synthesis`** because the other modes are intentionally similar by design — programmatic parameter sweeps, trace variants, and hand-authored tasks each express a structured form of variation that pairwise cosine would over-aggressively collapse.
+
+Every reject decision lands in `tenacious_bench_v0.1/judge_filter_log.jsonl` with full rationale: which task survived, which was dropped, the cosine value, the tie-breaker used, and both sides' mean judge scores. The latest v2 build dropped 3 tasks (TB-0401/2/3, all variants of synthesis seed S-1 in `icp_misclassification`) at cosine 0.9744 with `task_id_lex` tie-break.
+
 ---
 
 ## 3. Partitioning protocol

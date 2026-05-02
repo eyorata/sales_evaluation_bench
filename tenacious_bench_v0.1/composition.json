@@ -1,34 +1,34 @@
 {
   "train": {
-    "total": 128,
+    "total": 124,
     "by_dimension": {
-      "bench_over_commitment": 18,
-      "icp_misclassification": 12,
+      "bench_over_commitment": 17,
+      "icp_misclassification": 10,
       "signal_over_claiming": 11,
       "signal_confidence_alignment": 13,
       "scheduling_edge_cases": 14,
       "multi_thread_leakage": 18,
       "dual_control_coordination": 15,
-      "tone_drift": 15,
+      "tone_drift": 14,
       "gap_over_claiming": 12
     },
     "by_source_mode": {
-      "multi_llm_synthesis": 38,
-      "programmatic": 43,
+      "multi_llm_synthesis": 31,
+      "programmatic": 46,
       "trace_derived": 47
     },
     "by_difficulty": {
-      "hard": 64,
-      "medium": 17,
+      "hard": 60,
+      "medium": 18,
       "easy": 21,
-      "adversarial": 26
+      "adversarial": 25
     }
   },
   "dev": {
-    "total": 63,
+    "total": 62,
     "by_dimension": {
       "bench_over_commitment": 7,
-      "icp_misclassification": 7,
+      "icp_misclassification": 6,
       "signal_over_claiming": 6,
       "signal_confidence_alignment": 7,
       "scheduling_edge_cases": 6,
@@ -38,50 +38,50 @@
       "gap_over_claiming": 7
     },
     "by_source_mode": {
-      "programmatic": 28,
-      "multi_llm_synthesis": 11,
+      "programmatic": 25,
+      "multi_llm_synthesis": 13,
       "trace_derived": 24
     },
     "by_difficulty": {
-      "hard": 32,
+      "hard": 31,
       "medium": 12,
       "easy": 9,
       "adversarial": 10
     }
   },
   "held_out": {
-    "total": 75,
+    "total": 77,
     "by_dimension": {
-      "bench_over_commitment": 7,
+      "bench_over_commitment": 8,
       "icp_misclassification": 8,
       "signal_over_claiming": 9,
       "signal_confidence_alignment": 10,
       "scheduling_edge_cases": 4,
       "multi_thread_leakage": 6,
       "dual_control_coordination": 8,
-      "tone_drift": 12,
+      "tone_drift": 13,
       "gap_over_claiming": 9,
       "cost_pathology": 2
     },
     "by_source_mode": {
       "hand_authored_adversarial": 30,
       "style_guide_pair": 12,
-      "multi_llm_synthesis": 15,
+      "multi_llm_synthesis": 17,
       "programmatic": 9,
       "trace_derived": 9
     },
     "by_difficulty": {
-      "adversarial": 46,
-      "hard": 19,
-      "medium": 6,
+      "adversarial": 47,
+      "hard": 21,
+      "medium": 5,
       "easy": 4
     }
   },
   "overall": {
-    "total": 266,
+    "total": 263,
     "by_dimension": {
       "bench_over_commitment": 32,
-      "icp_misclassification": 27,
+      "icp_misclassification": 24,
       "signal_over_claiming": 26,
       "signal_confidence_alignment": 30,
       "scheduling_edge_cases": 24,
@@ -94,13 +94,13 @@
     "by_source_mode": {
       "programmatic": 80,
       "trace_derived": 80,
-      "multi_llm_synthesis": 64,
+      "multi_llm_synthesis": 61,
       "hand_authored_adversarial": 30,
       "style_guide_pair": 12
     },
     "by_difficulty": {
       "medium": 35,
-      "hard": 115,
+      "hard": 112,
       "easy": 34,
       "adversarial": 82
     }
