@@ -1,0 +1,59 @@
+{
+  "version": "v0.1",
+  "backbone": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit",
+  "training": {
+    "loss_type": "simpo",
+    "beta": 2.0,
+    "simpo_gamma": 1.0,
+    "cpo_alpha": 0.0,
+    "learning_rate": 1e-05,
+    "max_steps": 300,
+    "effective_batch_size": 16,
+    "wall_time_min": 64.1,
+    "final_train_loss": 0.2894
+  },
+  "held_out": {
+    "n_pairs": 12,
+    "source_modes_eligible": "tasks with ground_truth.chosen_output AND rejected_output (style_guide_pair + a few others)"
+  },
+  "delta_a": {
+    "name": "trained vs Week-10-baseline (untrained backbone, same scale)",
+    "trained_acc": 0.4167,
+    "baseline_acc": 0.1667,
+    "raw_lift_pp": 0.25,
+    "bootstrap_mean_diff": 0.251225,
+    "bootstrap_ci_low": 0.0,
+    "bootstrap_ci_high": 0.5,
+    "bootstrap_p_value": 0.0316,
+    "verdict": "POSITIVE_NOT_SIGNIFICANT"
+  },
+  "delta_b": {
+    "name": "trained vs prompt-engineered same-backbone",
+    "trained_acc": 0.4167,
+    "prompt_acc": 0.8333,
+    "raw_lift_pp": -0.4167,
+    "bootstrap_mean_diff": -0.4158,
+    "bootstrap_ci_low": -0.75,
+    "bootstrap_ci_high": 0.0,
+    "bootstrap_p_value": 0.9922,
+    "verdict": "FLAT_OR_NEGATIVE",
+    "honest_note": "Per the brief: a flat or negative Delta B is a legitimate, publishable finding. Report as-is."
+  },
+  "delta_c_informational": {
+    "name": "Week 10 \u03c4\u00b2-Bench retail (informational only, NO re-run per brief)",
+    "week10_pass_at_1": 0.7267,
+    "week10_ci": [
+      0.6504,
+      0.7917
+    ],
+    "week10_baseline_commit": "d11a97072c49d093f7b5a3e4fe9da95b490d43ba",
+    "interpretation": "Tenacious-Bench is a different distribution. The trained judge was not trained on retail-domain tasks; we do not expect or claim Delta-C lift. Tenacious-Bench lift is Tenacious-specific by construction."
+  },
+  "cost_pareto": {
+    "trained_judge_latency_ms": 417.0,
+    "prompt_judge_latency_ms": 372.1,
+    "trained_cost_usd_per_judgment_at_runpod_4090": 3.9e-05,
+    "prompt_cost_usd_per_judgment_at_runpod_4090": 3.5e-05,
+    "training_one_time_cost_usd": 0.0
+  }
+}

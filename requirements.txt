@@ -1,0 +1,35 @@
+# Tenacious-Bench v0.1 — runtime + reproduction dependencies.
+#
+# These are the versions used for the v2 training run on 2026-05-01 on a
+# Colab T4. Versions are pinned to upper bounds on minor versions to keep
+# the published headline number reproducible while permitting patch fixes.
+#
+# Installation:
+#   pip install -r requirements.txt
+#
+# For Colab T4 training (Cell 1 of docs/act4_colab_path_b.md), these are
+# also installed via Unsloth's [colab-new] extra:
+#   pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+
+# Core LLM stack
+torch>=2.3.0,<2.6.0
+transformers>=4.46.0,<4.50.0
+peft>=0.13.0,<0.16.0
+trl>=0.12.0,<0.16.0
+accelerate>=1.0.0,<1.4.0
+bitsandbytes>=0.44.0,<0.46.0
+datasets>=3.0.0,<3.4.0
+
+# Unsloth (Colab T4 4-bit QLoRA path)
+# Pinned via the unsloth[colab-new] git extra in the Colab notebook.
+
+# Evaluation / dataset construction
+huggingface_hub>=0.26.0,<0.30.0
+sentence-transformers>=3.2.0,<3.5.0   # contamination_check.py optional upgrade path
+numpy>=1.26.0,<2.3.0
+matplotlib>=3.9.0,<3.11.0
+
+# OpenRouter client uses urllib (stdlib) — no third-party dependency needed.
+
+# Dev / smoke-test only
+pytest>=8.3.0,<8.5.0

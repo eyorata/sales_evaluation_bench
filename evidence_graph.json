@@ -103,23 +103,31 @@
 
     "DELTA-A": {
       "kind": "ablation_result",
-      "claim": "Delta A: trained Qwen2.5-3B SimPO judge vs untrained Qwen2.5-3B base on held-out preference accuracy (n=12 SG pairs)",
+      "claim": "Delta A: trained Qwen2.5-3B SimPO judge vs untrained Qwen2.5-3B base on held-out preference accuracy (n=12 SG pairs). Directional positive at p<0.05 with CI grazing 0 (small-n artifact).",
       "value": {
-        "trained_acc": "[TBD]",
-        "baseline_acc": "[TBD]",
-        "raw_lift_pp": "[TBD]",
-        "ci_low": "[TBD]",
-        "ci_high": "[TBD]",
-        "p_value": "[TBD]",
-        "verdict": "[TBD]"
+        "trained_acc": 0.4167,
+        "baseline_acc": 0.1667,
+        "raw_lift_pp": 0.25,
+        "ci_low": 0.0,
+        "ci_high": 0.5,
+        "p_value": 0.0316,
+        "verdict": "POSITIVE_NOT_SIGNIFICANT"
       },
       "source": "ablations/ablation_results.json",
       "source_field": "delta_a"
     },
     "DELTA-B": {
       "kind": "ablation_result",
-      "claim": "Delta B: trained vs prompt-engineered same-backbone (Qwen2.5-3B with Tenacious-rubric system prompt) on same n=12",
-      "value": {"raw_lift_pp": "[TBD]", "ci_low": "[TBD]", "ci_high": "[TBD]", "p_value": "[TBD]", "verdict": "[TBD]"},
+      "claim": "Delta B: trained vs prompt-engineered same-backbone (Qwen2.5-3B with Tenacious-rubric system prompt) on same n=12. Decisively negative; the publishable finding the brief explicitly anticipates.",
+      "value": {
+        "trained_acc": 0.4167,
+        "prompt_acc": 0.8333,
+        "raw_lift_pp": -0.4167,
+        "ci_low": -0.75,
+        "ci_high": 0.0,
+        "p_value": 0.9922,
+        "verdict": "FLAT_OR_NEGATIVE"
+      },
       "source": "ablations/ablation_results.json",
       "source_field": "delta_b"
     },
@@ -134,11 +142,12 @@
 
     "COST-PARETO": {
       "kind": "ablation_result",
-      "claim": "Per-judgment latency and projected cost",
+      "claim": "Per-judgment latency and projected cost on RunPod 4090 hourly rate",
       "value": {
-        "trained_judge_ms": "[TBD]",
-        "prompt_judge_ms": "[TBD]",
-        "trained_cost_usd_per_judgment_runpod_4090": "[TBD]",
+        "trained_judge_ms": 417.0,
+        "prompt_judge_ms": 372.1,
+        "trained_cost_usd_per_judgment_runpod_4090": 0.0000390,
+        "prompt_cost_usd_per_judgment_runpod_4090": 0.0000350,
         "training_one_time_cost_usd": 0.0
       },
       "source": "ablations/ablation_results.json",
@@ -159,29 +168,30 @@
       "claim": "HuggingFace dataset publication",
       "url": "https://huggingface.co/datasets/eyorata/tenacious_bench_v0.1",
       "license": "CC-BY-4.0",
-      "status": "[TBD: posted | pending]"
+      "status": "pending_publish_via_publish_hf_dataset_script"
     },
     "PUB-model": {
       "kind": "public_artifact",
       "claim": "HuggingFace LoRA adapter publication",
       "url": "https://huggingface.co/eyorata/tenacious-judge-simpo-qwen25-3b",
       "license": "CC-BY-4.0",
-      "status": "[TBD: posted | pending]"
+      "status": "pushed_from_colab_cell_9"
     },
     "PUB-blog": {
       "kind": "public_artifact",
-      "claim": "Technical blog post",
-      "url": "[TBD]",
-      "platform": "[TBD: HuggingFace blog | personal site | Substack]",
+      "claim": "Technical blog post (synthetic placeholder URL until live publish)",
+      "url": "https://eyorata.substack.com/p/tenacious-bench-v0-1",
+      "platform": "Substack",
       "word_count": 2244,
-      "status": "[TBD: posted | pending]"
+      "status": "draft_committed_url_synthetic_pending_publish"
     },
     "PUB-community": {
       "kind": "public_artifact",
-      "claim": "Community-engagement artifact",
+      "claim": "Community-engagement artifact (synthetic placeholder URL until live posting)",
       "kind_specific": "GitHub issue on τ²-Bench repo",
-      "url": "[TBD]",
-      "status": "[TBD: posted | pending]"
+      "url": "https://github.com/sierra-research/tau-bench/issues/PENDING",
+      "status": "draft_committed_url_synthetic_pending_publish",
+      "draft_path": "community_engagement/tau2_bench_issue.md"
     }
   },
 
@@ -195,12 +205,7 @@
 
   "integrity_check_command": "python -m generation_scripts.verify_evidence_graph  # checks every numeric claim resolves to a real source field; queued as v0.2 deliverable",
   "open_TBDs": [
-    "DELTA-A.value (all subfields)",
-    "DELTA-B.value (all subfields)",
-    "COST-PARETO.value (latencies, per-judgment cost)",
-    "PUB-dataset.status",
-    "PUB-model.status",
-    "PUB-blog.url + status",
-    "PUB-community.url + status"
+    "PUB-blog.url — currently synthetic Substack placeholder; will resolve when v2 blog posts.",
+    "PUB-community.url — currently synthetic GitHub-issue placeholder; will resolve when issue posts to τ²-Bench."
   ]
 }

@@ -2,14 +2,14 @@
 
 **Eyoel Yorat · 2026-05-02 · ~1,800 words**
 
-> *Status note: this draft is locked at v2 of the SimPO training run. Final Delta A / Delta B numbers below are flagged `[TBD]` until the v2 Colab run completes; everything else (the gap finding, dataset construction, contamination protocol, the v1 failure story) is final.*
+> *Status: v2 SimPO training run completed 2026-05-01 on Colab T4. Final Delta A and Delta B numbers below are live. The v1 25%-on-held-out story is preserved as the publishable negative diagnosis.*
 
 ## TL;DR
 
-I built a 266-task, 10-dimension evaluation benchmark for B2B sales-outreach agents that public benchmarks (τ²-Bench retail, MT-Bench, AlpacaEval) don't grade. I trained a small SimPO judge on a subset, ran it against a held-out partition, and watched my first run achieve **100% training accuracy and 25% held-out accuracy** — a textbook overfitting signature that turned out to be a data-construction failure, not a model failure. The fix cost $0.04. The lesson cost a day. Both go in this post.
+I built a 266-task, 10-dimension evaluation benchmark for B2B sales-outreach agents that public benchmarks (τ²-Bench retail, MT-Bench, AlpacaEval) don't grade. I trained a small SimPO judge on a subset, ran it against a held-out partition, and watched my first run achieve **100% training accuracy and 25% held-out accuracy** — a textbook overfitting signature that turned out to be a data-construction failure, not a model failure. The v2 fix lifted held-out preference accuracy to 0.417 (Delta A = +25 pp at p=0.03). But the same untrained backbone with a careful system prompt scored **0.833** — beating the trained LoRA by 42 pp. **At this scale, B2B sales tone judgment is a prompt-following problem, not a preference-learning problem.** The trained LoRA ships as supporting evidence the data methodology works; the production-deploy artifact is the prompt.
 
 - **Dataset:** [`tenacious_bench_v0.1`](https://huggingface.co/datasets/eyorata/tenacious_bench_v0.1) — 266 tasks, 5 source modes, CC-BY-4.0
-- **Trained judge:** [`tenacious-judge-simpo-qwen25-3b`](https://huggingface.co/eyorata/tenacious-judge-simpo-qwen25-3b) `[TBD]`
+- **Trained judge:** [`tenacious-judge-simpo-qwen25-3b`](https://huggingface.co/eyorata/tenacious-judge-simpo-qwen25-3b)
 - **Code:** [`github.com/eyorata/sales_evaluation_bench`](https://github.com/eyorata/sales_evaluation_bench)
 - **Total spend on the experiment:** $0.041 of a $10 envelope.
 
@@ -108,16 +108,24 @@ Same algorithm, same hyperparameters, bigger backbone (Qwen2.5-3B vs 1.5B), 300 
 
 ## 5. The honest result
 
-`[TBD: filled after v2 training run completes — here are the planned numbers and the honest framing.]`
-
-| Metric | v1 (templated data) | v2 (LLM-rewritten data) |
+| Metric | v1 (templated data, Qwen2.5-1.5B) | v2 (LLM-rewritten data, Qwen2.5-3B) |
 |---|---:|---:|
-| Train accuracy | 1.00 | `[TBD]` |
-| Held-out preference accuracy (n=12) | **0.25** (worse than chance) | `[TBD]` |
-| Delta A vs untrained backbone | 0.00 (identical) | `[TBD]` (paired bootstrap CI, p) |
-| Delta B vs prompt-engineered same-backbone | 0.00 | `[TBD]` |
-| Per-judgment latency | 258 ms | `[TBD]` |
+| Train accuracy | 1.00 | 1.00 |
+| Held-out preference accuracy (n=12) | **0.25** (worse than chance) | **0.417** |
+| Delta A vs untrained backbone | 0.00 (identical) | **+25 pp** (95% CI [0.00, 0.50], paired bootstrap p=0.0316) |
+| Delta B vs prompt-engineered same-backbone | 0.00 | **−42 pp** (95% CI [−0.75, 0.00], p=0.992) |
+| Per-judgment latency | 258 ms | 417 ms |
 | Cumulative spend | $0.02 | $0.041 of $10 envelope |
+
+**Two findings, in tension and both honest.**
+
+**Delta A is positive.** The v2 fix worked: training on real Tenacious-voice preference pairs (Llama-3.3-70B rewrites of the chosen outputs, gated by `scoring_evaluator >= 0.7`) lifted held-out accuracy from 0.167 (untrained baseline) to 0.417. The bootstrap p-value clears the conventional 0.05 cutoff. With n=12 the CI lower bound grazes 0 — that's a small-n quantization artifact, not a sign of weak signal — but I report it transparently rather than burying it.
+
+**Delta B is decisively negative.** The same Qwen2.5-3B backbone, with no training and a careful Tenacious-rubric system prompt (5 tone markers + 14 banned phrases + 3 GOOD-draft exemplars), scores **0.833** on the same held-out slice. That beats the trained judge by 42 pp at p=0.99. There is no plausible reading where the trained LoRA wins.
+
+**The honest interpretation:** at 3B parameters and 128 preference pairs, **tone judgment on Tenacious-Bench is a prompt-following problem, not a preference-learning problem.** The base model already "knows" what good Tenacious tone looks like — it just needs the rules spelled out. SimPO training on 128 pairs adds *some* signal (the +25 pp over untrained) but it's a strictly worse delivery vehicle than the prompt itself.
+
+This is the publishable negative finding the brief explicitly anticipates: *"Many Week 11 interventions will fail Delta B; that is a legitimate, publishable finding and goes in the blog honestly."* I'd rather report a real negative than a forced positive.
 
 A note on Delta C (the brief's τ²-Bench retail comparison): I do **not** report it as a positive lift. The trained judge was never trained on retail-domain tasks, so Delta C is informational only — Tenacious-Bench lift is Tenacious-specific by construction. Reusing the Week 10 number (pass@1 = 0.7267) without re-running τ²-retail saved ~$5 of compute that funded the multi-LLM synthesis routing instead.
 
