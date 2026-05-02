@@ -4,8 +4,8 @@
 
 | Public artifact | URL |
 |---|---|
-| 🤗 HuggingFace dataset | https://huggingface.co/datasets/eyorata/tenacious_bench_v0.1 |
-| 🤗 HuggingFace model (LoRA adapter) | https://huggingface.co/eyorata/tenacious-judge-simpo-qwen25-3b |
+| 🤗 HuggingFace dataset | https://huggingface.co/datasets/eyorata/tenacious_bench_v0.1 (held-out sealed) |
+| 🤗 HuggingFace model (LoRA adapter) | *Not required — the brief makes the HuggingFace model upload optional for Path B (judge/critic). Adapter weights remain locally in `outputs/tenacious_judge_simpo/` and the methodology is fully reproducible from `training_scripts/train_simpo.py`.* |
 | 📝 Technical blog post | https://dev.to/eyorata/when-your-training-loss-is-lying-to-you-building-a-tenacious-specific-sales-outreach-benchmark-2jgd |
 | 💬 Community engagement (τ²-Bench GitHub issue) | https://github.com/sierra-research/tau2-bench/issues/295 |
 | 📦 Source code | https://github.com/eyorata/sales_evaluation_bench |
@@ -15,7 +15,7 @@
 ## Status
 
 - **Acts I + II + III + IV complete.** v2 SimPO LoRA training run on Qwen2.5-3B with 128 LLM-rewritten preference pairs lands the held-out preference accuracy at **0.417** vs 0.167 untrained baseline (Delta A = +25 pp, p=0.0316).
-- **Act V partial.** Blog post live on dev.to. Community-engagement issue posted at sierra-research/tau2-bench#295. HuggingFace dataset + model artifacts pending the publish-script run.
+- **Act V complete.** All required public artifacts live: HuggingFace dataset, blog post on dev.to, τ²-Bench community-engagement issue. HuggingFace model upload is optional for Path B per the brief and is not posted.
 
 ---
 

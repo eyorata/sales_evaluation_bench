@@ -165,17 +165,18 @@
 
     "PUB-dataset": {
       "kind": "public_artifact",
-      "claim": "HuggingFace dataset publication",
+      "claim": "HuggingFace dataset publication (held-out partition sealed)",
       "url": "https://huggingface.co/datasets/eyorata/tenacious_bench_v0.1",
       "license": "CC-BY-4.0",
-      "status": "pending_publish_via_publish_hf_dataset_script"
+      "status": "posted"
     },
     "PUB-model": {
       "kind": "public_artifact",
-      "claim": "HuggingFace LoRA adapter publication",
-      "url": "https://huggingface.co/eyorata/tenacious-judge-simpo-qwen25-3b",
+      "claim": "HuggingFace LoRA adapter publication — not required for Path B per the brief",
+      "url": null,
       "license": "CC-BY-4.0",
-      "status": "pushed_from_colab_cell_9"
+      "status": "not_required_for_path_b",
+      "note": "Adapter weights remain locally in outputs/tenacious_judge_simpo/ and the methodology is fully reproducible via training_scripts/train_simpo.py."
     },
     "PUB-blog": {
       "kind": "public_artifact",
